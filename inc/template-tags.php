@@ -149,16 +149,16 @@ if ( ! function_exists( 'kilka_post_thumbnail' ) ) :
 		if ( 'post' === get_post_type() ) {
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'post-thumbnail' );
 			if ( $image && $image[1] > 0 && $image[2] > 0 ) {
-				// Match the 600px height limit and the Main Blog's padded grid.
-				$width_limit = min( $image[1], (int) ceil( 600 * $image[1] / $image[2] ) );
+				// Match the 860px cover width, 600px height and outer grid gutter.
+				$width_limit = min( 860, $image[1], (int) ceil( 600 * $image[1] / $image[2] ) );
 				$desktop = kilka_has_contextual_sidebar()
-					? 'min(calc(66.667vw - 90px), 763.34px, %1$dpx)'
-					: 'min(calc(100vw - 90px), 1030px, %1$dpx)';
+					? 'min(calc(66.667vw - 30px), 823.34px, %1$dpx)'
+					: 'min(calc(100vw - 30px), 860px, %1$dpx)';
 				$thumbnail_attributes['sizes'] = sprintf(
-					'(max-width: 575px) min(calc(100vw - 90px), %1$dpx), (max-width: 767px) %2$dpx, (max-width: 991px) %3$dpx, ' . $desktop,
+					'(max-width: 575px) min(calc(100vw - 30px), %1$dpx), (max-width: 767px) %2$dpx, (max-width: 991px) %3$dpx, ' . $desktop,
 					$width_limit,
-					min( 450, $width_limit ),
-					min( 630, $width_limit )
+					min( 510, $width_limit ),
+					min( 690, $width_limit )
 				);
 			}
 
