@@ -2979,3 +2979,23 @@ body.kilka-exhibition-information-open {
 
 /* Without script enhancement, contain wide content within the article. */
 .kilka-main-blog-context .entry-content:not(.kilka-tables-ready) { overflow-x: auto; }
+
+/* Exhibition information remains in the document until its dialog is ready. */
+.kilka-exhibition__information:not(.is-enhanced) {
+  position: static;
+  display: block;
+  padding: 80px 20px 32px;
+  background: transparent;
+}
+.kilka-exhibition__information:not(.is-enhanced) .kilka-exhibition__information-panel {
+  max-height: none;
+  margin-inline: auto;
+  padding: 32px;
+}
+a.kilka-exhibition__information-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.kilka-exhibition__information-close[hidden] { display: none; }

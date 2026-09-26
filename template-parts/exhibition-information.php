@@ -34,11 +34,11 @@ $kilka_panel_id       = 'kilka-exhibition-information-' . $kilka_exhibition_id;
 $kilka_panel_title_id = $kilka_panel_id . '-title';
 ?>
 
-<button class="kilka-exhibition__information-toggle" type="button" aria-label="<?php esc_attr_e( 'About this exhibition', 'kilka' ); ?>" aria-controls="<?php echo esc_attr( $kilka_panel_id ); ?>" aria-expanded="false">i</button>
+<a class="kilka-exhibition__information-toggle" href="#<?php echo esc_attr( $kilka_panel_id ); ?>" aria-label="<?php esc_attr_e( 'About this exhibition', 'kilka' ); ?>" aria-controls="<?php echo esc_attr( $kilka_panel_id ); ?>">i</a>
 
-<aside id="<?php echo esc_attr( $kilka_panel_id ); ?>" class="kilka-exhibition__information" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr( $kilka_panel_title_id ); ?>" hidden>
+<aside id="<?php echo esc_attr( $kilka_panel_id ); ?>" class="kilka-exhibition__information" aria-labelledby="<?php echo esc_attr( $kilka_panel_title_id ); ?>">
 	<div class="kilka-exhibition__information-panel">
-		<button class="kilka-exhibition__information-close" type="button" aria-label="<?php esc_attr_e( 'Close information', 'kilka' ); ?>">&times;</button>
+		<button class="kilka-exhibition__information-close" type="button" hidden aria-label="<?php esc_attr_e( 'Close information', 'kilka' ); ?>">&times;</button>
 		<header class="kilka-exhibition__information-section kilka-exhibition__information-intro">
 			<?php if ( $kilka_heading ) : ?>
 				<h2 id="<?php echo esc_attr( $kilka_panel_title_id ); ?>" class="kilka-exhibition__information-title"><?php echo esc_html( $kilka_heading ); ?></h2>

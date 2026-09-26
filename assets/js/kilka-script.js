@@ -231,7 +231,8 @@
                 }
             };
 
-            var openInformation = function () {
+            var openInformation = function (event) {
+                event.preventDefault();
                 lastFocusedElement = document.activeElement;
                 $information.removeAttr("hidden");
                 $informationToggle.attr("aria-expanded", "true");
@@ -265,6 +266,16 @@
                     closeInformation();
                 }
             });
+            // Keep information readable if this enhancement never runs.
+            if ($information.length) {
+                $information.attr({ "hidden": "hidden", "role": "dialog", "aria-modal": "true" })
+                    .addClass("is-enhanced");
+                $informationClose.removeAttr("hidden");
+                $informationToggle.attr({ "aria-expanded": "false", "role": "button" });
+                $informationToggle.on("keydown", function (event) {
+                    if (event.key === " ") openInformation(event);
+                });
+            }
         }
     });
 }(jQuery));
