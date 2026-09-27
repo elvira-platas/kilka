@@ -15,6 +15,7 @@
       frame.style.transform = 'scale(' + scale + ')'; wrap.style.height = dims[1] * scale + 'px';
       intro.dataset.position = field('position').value;
       intro.dataset.mobilePosition = field('mobile_position').value;
+      intro.dataset.align = field('align').value;
       ['ink','background','shade','title_size','text_size','align','title_font','text_font','desktop_x','desktop_y','tablet_x','tablet_y','mobile_x','mobile_y'].forEach(function (key) {
         var value = field(key).value, cssKey = key.replaceAll('_','-');
         if (key === 'background') cssKey = 'bg';

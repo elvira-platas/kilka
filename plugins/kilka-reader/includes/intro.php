@@ -13,7 +13,8 @@ function kilka_reader_intro_sanitize( $input ) {
 		$v = $input[$key];
 		if ( in_array( $key, array( 'enabled', 'hide_line' ), true ) ) { $out[$key] = ! empty( $v ); }
 		elseif ( in_array( $key, array( 'image', 'mobile_image' ), true ) ) { $out[$key] = wp_attachment_is_image( absint( $v ) ) ? absint( $v ) : 0; }
-		elseif ( in_array( $key, array( 'title', 'author', 'line' ), true ) ) { $out[$key] = sanitize_text_field( $v ); }
+		elseif ( 'title' === $key ) { $out[$key] = sanitize_textarea_field( $v ); }
+		elseif ( in_array( $key, array( 'author', 'line' ), true ) ) { $out[$key] = sanitize_text_field( $v ); }
 		elseif ( in_array( $key, array( 'title_font', 'text_font' ), true ) ) { $out[$key] = in_array( $v, array( 'serif', 'sans' ), true ) ? $v : $default; }
 		elseif ( in_array( $key, array( 'position', 'mobile_position' ), true ) ) { $out[$key] = in_array( $v, array( 'top', 'center', 'bottom' ), true ) ? $v : $default; }
 		elseif ( 'align' === $key ) { $out[$key] = in_array( $v, array( 'left', 'center', 'right' ), true ) ? $v : $default; }
@@ -45,7 +46,7 @@ function kilka_reader_intro_markup( $id ) {
 	if ( ! $s['enabled'] ) { return ''; }
 	$title = '' !== $s['title'] ? $s['title'] : get_the_title( $id );
 	$language = kilka_reader_language( get_post_meta( $id, '_kilka_reader_language', true ) );
-	$html = '<section' . ( $language ? ' lang="' . esc_attr( $language ) . '"' : '' ) . ' class="kilka-reader-intro" aria-label="' . esc_attr__( 'Story introduction', 'kilka-reader' ) . '" data-position="' . esc_attr( $s['position'] ) . '" data-mobile-position="' . esc_attr( $s['mobile_position'] ) . '" style="' . esc_attr( kilka_reader_intro_style( $s ) ) . '">';
+	$html = '<section' . ( $language ? ' lang="' . esc_attr( $language ) . '"' : '' ) . ' class="kilka-reader-intro" aria-label="' . esc_attr__( 'Story introduction', 'kilka-reader' ) . '" data-position="' . esc_attr( $s['position'] ) . '" data-mobile-position="' . esc_attr( $s['mobile_position'] ) . '" data-align="' . esc_attr( $s['align'] ) . '" style="' . esc_attr( kilka_reader_intro_style( $s ) ) . '">';
 	if ( $s['image'] ) {
 		$html .= '<picture class="kilka-reader-intro__picture">';
 		if ( $s['mobile_image'] ) {
@@ -71,7 +72,8 @@ function kilka_reader_intro_editor( $post ) {
 		echo '<p>' . esc_html( $label ) . ' <input type="hidden" name="kilka_intro[' . esc_attr( $key ) . ']" value="' . esc_attr( $s[$key] ) . '" data-url="' . esc_url( wp_get_attachment_image_url( $s[$key], 'full' ) ?: '' ) . '"><button type="button" class="button" data-intro-media="' . esc_attr( $key ) . '">' . esc_html__( 'Choose image', 'kilka-reader' ) . '</button> <button type="button" class="button" data-intro-remove="' . esc_attr( $key ) . '">' . esc_html__( 'Remove image', 'kilka-reader' ) . '</button></p>';
 	}
 	echo '<div class="kilka-intro-fields">';
-	foreach ( array( 'title' => __( 'Title (empty uses page title)', 'kilka-reader' ), 'author' => __( 'Author (optional)', 'kilka-reader' ), 'line' => __( 'Short line (optional)', 'kilka-reader' ), 'ink' => __( 'Text color', 'kilka-reader' ), 'background' => __( 'Background color', 'kilka-reader' ) ) as $key => $label ) {
+	echo '<label>' . esc_html__( 'Title (empty uses page title)', 'kilka-reader' ) . '<textarea name="kilka_intro[title]" rows="3" aria-describedby="kilka-intro-title-help">' . esc_textarea( $s['title'] ) . '</textarea><span class="description" id="kilka-intro-title-help">' . esc_html__( 'Press Enter to start a new line. Narrow screens may wrap each line further.', 'kilka-reader' ) . '</span></label>';
+	foreach ( array( 'author' => __( 'Author (optional)', 'kilka-reader' ), 'line' => __( 'Short line (optional)', 'kilka-reader' ), 'ink' => __( 'Text color', 'kilka-reader' ), 'background' => __( 'Background color', 'kilka-reader' ) ) as $key => $label ) {
 		$type = in_array( $key, array( 'ink', 'background' ), true ) ? 'color' : 'text';
 		echo '<label>' . esc_html( $label ) . '<input type="' . esc_attr( $type ) . '" name="kilka_intro[' . esc_attr( $key ) . ']" value="' . esc_attr( $s[$key] ) . '"></label>';
 	}
@@ -95,5 +97,5 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 	wp_enqueue_media();
 	wp_enqueue_style( 'kilka-intro-editor', plugins_url( 'assets/intro-editor.css', dirname( __DIR__ ) . '/kilka-reader.php' ), array(), filemtime( __DIR__ . '/../assets/intro-editor.css' ) );
 	wp_enqueue_script( 'kilka-intro-editor', plugins_url( 'assets/intro-editor.js', dirname( __DIR__ ) . '/kilka-reader.php' ), array( 'media-editor', 'wp-data' ), filemtime( __DIR__ . '/../assets/intro-editor.js' ), true );
-	wp_localize_script( 'kilka-intro-editor', 'kilkaIntroPreview', array( 'css' => plugins_url( 'assets/intro.css', dirname( __DIR__ ) . '/kilka-reader.php' ) ) );
+	wp_localize_script( 'kilka-intro-editor', 'kilkaIntroPreview', array( 'css' => add_query_arg( 'ver', filemtime( __DIR__ . '/../assets/intro.css' ), plugins_url( 'assets/intro.css', dirname( __DIR__ ) . '/kilka-reader.php' ) ) ) );
 } );

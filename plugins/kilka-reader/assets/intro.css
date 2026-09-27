@@ -9,7 +9,7 @@
   width: 100vw;
   margin-inline: calc(50% - 50vw);
   min-height: calc(100svh - 64px);
-  padding: 80px clamp(24px, 9vw, 160px) 88px;
+  padding: calc(96px + env(safe-area-inset-top, 0px)) calc(96px + env(safe-area-inset-right, 0px)) calc(96px + env(safe-area-inset-bottom, 0px)) calc(96px + env(safe-area-inset-left, 0px));
   overflow-wrap: anywhere;
   color: var(--intro-ink, #fff);
   background: var(--intro-bg, #17313b);
@@ -42,6 +42,8 @@
   box-shadow: none;
 }
 .kilka-reader-intro__copy { width: 100%; max-width: 1100px; margin-inline: auto; }
+.kilka-reader-intro[data-align="left"] .kilka-reader-intro__copy { margin-inline-start: 0; margin-inline-end: auto; }
+.kilka-reader-intro[data-align="right"] .kilka-reader-intro__copy { margin-inline-start: auto; margin-inline-end: 0; }
 .kilka-reader-intro .kilka-reader-intro__title {
   font-family: var(--intro-title-font, Georgia, serif);
   font-size: clamp(28px, calc(var(--intro-title-size, 64px) * var(--intro-title-scale, 1)), 100px);
@@ -52,6 +54,7 @@
   text-align: inherit;
   text-transform: none;
   letter-spacing: normal;
+  white-space: pre-line;
 }
 .kilka-reader-intro p.kilka-reader-intro__author,
 .kilka-reader-intro p.kilka-reader-intro__line {
@@ -64,11 +67,15 @@
   text-align: inherit;
   letter-spacing: normal;
 }
+.kilka-reader-intro p.kilka-reader-intro__author {
+  margin-top: 12px;
+  font-size: max(16px, calc(var(--intro-text-size, 22px) * var(--intro-text-scale, 1) * .85));
+}
 @media (min-width: 768px) and (max-width: 1023px) {
   .kilka-reader-intro { --intro-title-scale: .85; --intro-x: var(--intro-tablet-x, 50%); --intro-y: var(--intro-tablet-y, 50%); }
 }
 @media (max-width: 767px) {
-  .kilka-reader-intro { --intro-title-scale: .65; --intro-text-scale: .85; --intro-x: var(--intro-mobile-x, 50%); --intro-y: var(--intro-mobile-y, 50%); padding: calc(48px + env(safe-area-inset-top, 0px)) 24px calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .kilka-reader-intro { --intro-title-scale: .65; --intro-text-scale: .85; --intro-x: var(--intro-mobile-x, 50%); --intro-y: var(--intro-mobile-y, 50%); padding: calc(80px + env(safe-area-inset-top, 0px)) calc(24px + env(safe-area-inset-right, 0px)) calc(80px + env(safe-area-inset-bottom, 0px)) calc(24px + env(safe-area-inset-left, 0px)); }
   .kilka-reader-intro[data-mobile-position="top"] { justify-content: flex-start; }
   .kilka-reader-intro[data-mobile-position="center"] { justify-content: center; }
   .kilka-reader-intro[data-mobile-position="bottom"] { justify-content: flex-end; }
