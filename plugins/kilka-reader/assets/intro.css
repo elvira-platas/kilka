@@ -1,0 +1,141 @@
+/* The introduction is outside the story columns and never changes their typography. */
+.kilka-reader-intro {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  min-height: calc(100svh - 64px);
+  padding: 80px clamp(24px, 9vw, 160px) 88px;
+  overflow-wrap: anywhere;
+  color: var(--intro-ink, #fff);
+  background: var(--intro-bg, #17313b);
+  text-align: var(--intro-align, left);
+  --reader-heading: var(--intro-ink, #fff);
+  --intro-x: var(--intro-desktop-x, 50%);
+  --intro-y: var(--intro-desktop-y, 50%);
+}
+.kilka-reader-intro[hidden] { display: none !important; }
+.kilka-reader-intro[data-position="top"] { justify-content: flex-start; }
+.kilka-reader-intro[data-position="bottom"] { justify-content: flex-end; }
+.kilka-reader-intro__picture,
+.kilka-reader-intro__picture::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.kilka-reader-intro__picture::after { content: ''; background: rgba(0,0,0,var(--intro-shade, .3)); z-index: 1; }
+.kilka-reader-intro .kilka-reader-intro__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: var(--intro-x) var(--intro-y);
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+.kilka-reader-intro__copy { width: 100%; max-width: 1100px; margin-inline: auto; }
+.kilka-reader-intro .kilka-reader-intro__title {
+  font-family: var(--intro-title-font, Georgia, serif);
+  font-size: clamp(28px, calc(var(--intro-title-size, 64px) * var(--intro-title-scale, 1)), 100px);
+  line-height: 1.12;
+  font-weight: 400;
+  margin: 0;
+  color: inherit;
+  text-align: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.kilka-reader-intro p.kilka-reader-intro__author,
+.kilka-reader-intro p.kilka-reader-intro__line {
+  font-family: var(--intro-text-font, system-ui, sans-serif);
+  font-size: max(16px, calc(var(--intro-text-size, 22px) * var(--intro-text-scale, 1)));
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 24px 0 0;
+  color: inherit;
+  text-align: inherit;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .kilka-reader-intro { --intro-title-scale: .85; --intro-x: var(--intro-tablet-x, 50%); --intro-y: var(--intro-tablet-y, 50%); }
+}
+@media (max-width: 767px) {
+  .kilka-reader-intro { --intro-title-scale: .65; --intro-text-scale: .85; --intro-x: var(--intro-mobile-x, 50%); --intro-y: var(--intro-mobile-y, 50%); padding: calc(48px + env(safe-area-inset-top, 0px)) 24px calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .kilka-reader-intro[data-mobile-position="top"] { justify-content: flex-start; }
+  .kilka-reader-intro[data-mobile-position="center"] { justify-content: center; }
+  .kilka-reader-intro[data-mobile-position="bottom"] { justify-content: flex-end; }
+  .kilka-reader-intro .hide-on-small { display: none; }
+}
+@media screen {
+  [data-reader-mode="pages"] .kilka-reader-intro {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    z-index: 3;
+    overflow-y: auto;
+    touch-action: pan-y pinch-zoom;
+    cursor: grab;
+  }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-reader-dragging] { cursor: grabbing; }
+  [data-reader-mode="pages"] .kilka-reader-intro__copy { margin-block: auto; flex-shrink: 0; }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-position="top"] .kilka-reader-intro__copy { margin-top: 0; }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-position="bottom"] .kilka-reader-intro__copy { margin-bottom: 0; }
+  [data-reader-intro-active] .kilka-reader-viewport { visibility: hidden; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock,
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages { background: transparent; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages button { background: transparent; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock :is(.kilka-reader-return, .kilka-reader-settings-toggle) {
+    position: relative;
+    isolation: isolate;
+    border-radius: 50%;
+    border: 0;
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock :is(.kilka-reader-return, .kilka-reader-settings-toggle)::before {
+    position: absolute;
+    inset: 3px;
+    z-index: -1;
+    border-radius: 50%;
+    background: rgba(24, 27, 32, .52);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    content: '';
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  :fullscreen [data-reader-mode="pages"] .kilka-reader-intro { inset: 0; }
+  @media (max-width: 767px) {
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="top"] .kilka-reader-intro__copy { margin-top: 0; margin-bottom: auto; }
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="center"] .kilka-reader-intro__copy { margin-block: auto; }
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="bottom"] .kilka-reader-intro__copy { margin-top: auto; margin-bottom: 0; }
+  }
+}
+@media print { .kilka-reader-intro { width: 100%; margin: 0; min-height: 0; break-after: page; } }
+
+@media screen and (min-width: 1024px) and (any-hover: hover) and (any-pointer: fine) {
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages button {
+    position: fixed;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(24, 27, 32, .52);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+}
+
+@media screen {
+  .kilka-reader-turn-stage { z-index: 4; }
+  .kilka-reader-turn-stage .kilka-reader-intro { visibility: visible; }
+}

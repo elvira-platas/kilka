@@ -121,10 +121,10 @@ body.kilka-reader-active.admin-bar { --reader-admin-offset: 32px; }
   width: 48px;
   height: 48px;
   padding: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
+  border: 1px solid var(--reader-border, #d2c4a8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--reader-control, #e3d7bd);
   color: var(--reader-ink, #40382e);
   cursor: pointer;
   text-decoration: none;

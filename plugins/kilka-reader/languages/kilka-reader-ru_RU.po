@@ -49,6 +49,9 @@ msgstr "Светлый"
 msgid "None"
 msgstr "Нет"
 
+msgid "Neutral"
+msgstr "Нейтральный"
+
 msgid "Optional source or rights note. Remove this group if it is not needed."
 msgstr "Необязательное примечание об источнике или правах. Удалите эту группу, если она не нужна."
 

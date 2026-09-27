@@ -49,6 +49,9 @@ msgstr "Hell"
 msgid "None"
 msgstr "Keine"
 
+msgid "Neutral"
+msgstr "Neutral"
+
 msgid "Optional source or rights note. Remove this group if it is not needed."
 msgstr "Optionaler Hinweis zu Quelle oder Nutzungsrechten. Entfernen Sie diese Gruppe, wenn sie nicht benötigt wird."
 

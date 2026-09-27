@@ -14,7 +14,9 @@ Portable reading pages with text size controls and a return to a related publica
 
 Use ordinary WordPress Pages with the Reading template. Content stays in core blocks. Existing Kilka Reading pages keep their content and URLs. A supporting theme controls presentation; other themes receive a neutral standalone reading page. This plugin does not require the Kilka theme or other Kilka plugins.
 
-Choose a related published blog post in the page editor's Reader panel. A Close reader icon links to the related publication, or the site home page if no public target is available. Private, draft and password-protected targets are hidden. Optional JavaScript controls adjust text size from 80 to 160 percent and reset it. Align left is the default; readers may choose Justify with browser-native automatic hyphenation. Set the optional Text language field for correct pronunciation and language-specific hyphenation. Alignment also lasts only while the page is open. Three reading palettes are available: Cream (initial), Light and Graphite. The reader palette does not change the site color preference and resets to Cream on reload. The settings are grouped in a collapsible panel; Close reader and Reading settings remain visible during reading. The Kilka template and neutral fallback omit the site header and footer. Without JavaScript, the complete document and exit remain usable.
+Open Reader in the admin menu, choose a reading document and set its related published blog post. A Close reader icon links to the related publication, or the site home page if no public target is available. Private, draft and password-protected targets are hidden. Optional JavaScript controls adjust text size from 80 to 160 percent and reset it. Align left is the default; readers may choose Justify with browser-native automatic hyphenation. Set the optional Text language field for correct pronunciation and language-specific hyphenation. Alignment also lasts only while the page is open. Four reading palettes are available: Light (initial), Cream, Neutral and Graphite. The reader palette does not change the site color preference and resets to Light on reload. The settings are grouped in a collapsible panel; Close reader and Reading settings remain visible during reading. The Kilka template and neutral fallback omit the site header and footer. Without JavaScript, the complete document and exit remain usable.
+
+The Introduction — Space section in Reader settings adds a full-screen opening composition before the story. Choose a local background image, title, optional author and short line, text colors and system serif/sans-serif fonts. Desktop, tablet and phone crops have independent focal positions; a separate phone image and hiding the short line on phones are optional. The editor includes responsive previews. The introduction uses normal page turns but is not included in the story page count: the first text page starts at 1 of N. It stays independent of reading text size, alignment and palettes. It is disabled by default and remains visible above the story in scrolling mode or without JavaScript.
 
 No analytics, telemetry, cookies, browser storage or background requests are added. Text size lasts only while the page is open. Separate plugins, embedded content and server logs are outside this plugin's control. Use locally hosted media for a reading experience without third-party requests.
 
@@ -25,7 +27,8 @@ Deactivation preserves content and metadata. An optional fullscreen button is av
 1. Install and activate the plugin ZIP.
 2. Create or edit a Page and choose the Reading template.
 3. Insert the Reading document pattern or keep existing core-block content.
-4. Optionally choose a related publication in the Reader panel and save.
+4. Open Reader in the admin menu to configure the introduction, related publication and text language. Save reader settings.
+5. Use Edit story text for the WordPress content editor. Reader also offers Add reading document, which creates a draft with the Reading template already selected.
 
 == AI Assistance ==
 

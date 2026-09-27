@@ -1,0 +1,8 @@
+.kilka-intro-fields { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; }
+.kilka-intro-fields label { display: flex; flex-direction: column; gap: 6px; }
+.kilka-intro-preview { width: 100%; overflow: hidden; background: #eee; position: relative; }
+.kilka-intro-preview iframe { border: 0; display: block; transform-origin: top left; background: #fff; }
+
+.kilka-reader-admin form { max-width: 1200px; }
+.kilka-reader-admin .kilka-intro-editor { padding: 20px; background: #fff; border: 1px solid #c3c4c7; }
+.kilka-reader-admin .kilka-intro-preview { max-width: 960px; }

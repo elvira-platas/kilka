@@ -15,6 +15,14 @@
   --reader-border: #d7d7d7;
   --reader-control: #eeeeee;
 }
+.kilka-reader-active .kilka-reading[data-reader-color="neutral"] {
+  --reader-background: #e9eae8;
+  --reader-ink: #454649;
+  --reader-heading: #3d3e40;
+  --reader-link: #31647c;
+  --reader-border: #d0d2d0;
+  --reader-control: #dcdfdc;
+}
 .kilka-reader-active .kilka-reading[data-reader-color="graphite"] {
   --reader-background: #18191d;
   --reader-ink: #d4d5d8;
@@ -57,6 +65,7 @@
 .kilka-reader-swatch { width: 24px; height: 24px; border-radius: 50%; border: 1px solid currentColor; }
 [data-reader-color-option="cream"] .kilka-reader-swatch { background: #f5ecd9; }
 [data-reader-color-option="light"] .kilka-reader-swatch { background: #fafaf8; }
+[data-reader-color-option="neutral"] .kilka-reader-swatch { background: #e9eae8; }
 [data-reader-color-option="graphite"] .kilka-reader-swatch { background: #18191d; }
 .kilka-reader-colors button:focus-visible { outline: 2px solid var(--reader-link); outline-offset: 3px; }
 @media print {

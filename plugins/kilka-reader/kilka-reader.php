@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'KILKA_READER_VERSION', '0.1.0' );
 define( 'KILKA_READER_TEMPLATE', 'page-templates/reading.php' );
 require_once __DIR__ . '/languages.php';
+require_once __DIR__ . '/includes/intro.php';
+require_once __DIR__ . '/includes/admin.php';
 
 /** Keep existing reading pages and URLs; no content migration is required. */
 function kilka_reader_is_reading() {
@@ -75,8 +77,12 @@ add_action( 'add_meta_boxes_page', function () {
 	add_meta_box( 'kilka-reader', __( 'Reader', 'kilka-reader' ), 'kilka_reader_meta_box', 'page', 'side' );
 } );
 
-function kilka_reader_meta_box( $post ) {
-	wp_nonce_field( 'kilka_reader_save', 'kilka_reader_nonce' );
+function kilka_reader_meta_box( $post, $settings = false ) {
+	if ( ! $settings ) {
+		$url = KILKA_READER_TEMPLATE === get_page_template_slug( $post ) ? kilka_reader_admin_url( $post->ID ) : kilka_reader_admin_url();
+		echo '<p><a class="button" href="' . esc_url( $url ) . '">' . esc_html__( 'Reader settings', 'kilka-reader' ) . '</a></p>';
+		return;
+	}
 	$selected = (int) get_post_meta( $post->ID, '_kilka_reader_publication', true );
 	$posts = get_posts( array( 'post_type' => array( 'post', 'world_note' ), 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC' ) );
 	echo '<p>' . esc_html__( 'Use the Reading page template. Optionally choose the publication readers can return to.', 'kilka-reader' ) . '</p>';
@@ -92,20 +98,6 @@ function kilka_reader_meta_box( $post ) {
 	echo '<p><label for="kilka-reader-language">' . esc_html__( 'Text language', 'kilka-reader' ) . '</label><input id="kilka-reader-language" name="kilka_reader_language" type="text" maxlength="35" placeholder="ru, en, de" value="' . esc_attr( get_post_meta( $post->ID, '_kilka_reader_language', true ) ) . '" class="widefat"></p>';
 	echo '<p>' . esc_html__( 'Language tag for pronunciation and automatic hyphenation. Leave empty to use the site language.', 'kilka-reader' ) . '</p>';
 }
-
-add_action( 'save_post_page', function ( $id ) {
-	if ( ! isset( $_POST['kilka_reader_nonce'], $_POST['kilka_reader_publication'] ) || ! is_scalar( $_POST['kilka_reader_nonce'] ) || ! is_scalar( $_POST['kilka_reader_publication'] ) ) {
-		return;
-	}
-	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kilka_reader_nonce'] ) ), 'kilka_reader_save' ) || ! current_user_can( 'edit_post', $id ) || wp_is_post_revision( $id ) || wp_is_post_autosave( $id ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ) {
-		return;
-	}
-	$target = absint( $_POST['kilka_reader_publication'] );
-	update_post_meta( $id, '_kilka_reader_publication', kilka_reader_publication( $target ) ? $target : 0 );
-	if ( isset( $_POST['kilka_reader_language'] ) && is_string( $_POST['kilka_reader_language'] ) ) {
-		update_post_meta( $id, '_kilka_reader_language', kilka_reader_language( trim( wp_unslash( $_POST['kilka_reader_language'] ) ) ) );
-	}
-} );
 
 /** Portable block styles and pattern; Kilka retains its no-plugin fallback. */
 add_action( 'init', function () {
@@ -127,6 +119,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( ! kilka_reader_is_reading() ) {
 		return;
 	}
+	wp_enqueue_style( 'kilka-reader-intro', plugins_url( 'assets/intro.css', __FILE__ ), array(), filemtime( __DIR__ . '/assets/intro.css' ) );
 	wp_enqueue_style( 'kilka-reader-controls', plugins_url( 'assets/controls.css', __FILE__ ), array(), filemtime( __DIR__ . '/assets/controls.css' ) );
 	wp_enqueue_style( 'kilka-reader-colors', plugins_url( 'assets/colors.css', __FILE__ ), array( 'kilka-reader-controls' ), filemtime( __DIR__ . '/assets/colors.css' ) );
 	wp_enqueue_script( 'kilka-reader-pagination', plugins_url( 'assets/pagination.js', __FILE__ ), array(), filemtime( __DIR__ . '/assets/pagination.js' ), true );
@@ -167,8 +160,8 @@ add_filter( 'the_content', function ( $content ) {
 		$toolbar .= '<button type="button" data-reader-alignment="' . esc_attr( $alignment ) . '" aria-label="' . esc_attr( $label ) . '" aria-pressed="' . ( 'left' === $alignment ? 'true' : 'false' ) . '"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="' . esc_attr( $path ) . '"/></svg></button>';
 	}
 	$toolbar .= '</div><div class="kilka-reader-colors" role="group" aria-label="' . esc_attr__( 'Page color', 'kilka-reader' ) . '" hidden>';
-	foreach ( array( 'cream' => __( 'Cream', 'kilka-reader' ), 'light' => __( 'Light', 'kilka-reader' ), 'graphite' => __( 'Graphite', 'kilka-reader' ) ) as $color => $label ) {
-		$toolbar .= '<button type="button" data-reader-color-option="' . esc_attr( $color ) . '" aria-label="' . esc_attr( $label ) . '" aria-pressed="' . ( 'cream' === $color ? 'true' : 'false' ) . '"><span class="kilka-reader-swatch" aria-hidden="true"></span></button>';
+	foreach ( array( 'cream' => __( 'Cream', 'kilka-reader' ), 'neutral' => __( 'Neutral', 'kilka-reader' ), 'light' => __( 'Light', 'kilka-reader' ), 'graphite' => __( 'Graphite', 'kilka-reader' ) ) as $color => $label ) {
+		$toolbar .= '<button type="button" data-reader-color-option="' . esc_attr( $color ) . '" aria-label="' . esc_attr( $label ) . '" aria-pressed="' . ( 'light' === $color ? 'true' : 'false' ) . '"><span class="kilka-reader-swatch" aria-hidden="true"></span></button>';
 	}
 	$toolbar .= '</div><div class="kilka-reader-mode" role="group" aria-label="' . esc_attr__( 'Reading mode', 'kilka-reader' ) . '" hidden>';
 	foreach ( array( 'scroll' => __( 'Continuous scrolling', 'kilka-reader' ), 'pages' => __( 'Paginated reading', 'kilka-reader' ) ) as $mode => $label ) {
@@ -179,5 +172,5 @@ add_filter( 'the_content', function ( $content ) {
 	$toolbar .= '<p class="kilka-reader-hint" lang="' . esc_attr( $ui_language ) . '" role="status" aria-live="polite" data-message="' . esc_attr__( 'Tap the text to show reading controls.', 'kilka-reader' ) . '"></p>';
 	$toolbar .= '<nav class="kilka-reader-pages" lang="' . esc_attr( $ui_language ) . '" aria-label="' . esc_attr__( 'Reading pages', 'kilka-reader' ) . '" hidden><button type="button" data-reader-turn="previous" aria-label="' . esc_attr__( 'Previous page', 'kilka-reader' ) . '"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></button><span class="kilka-reader-page-number" role="status" aria-live="polite" aria-atomic="true" data-label="' . esc_attr__( 'Page %1$s of %2$s', 'kilka-reader' ) . '"></span><button type="button" data-reader-turn="next" aria-label="' . esc_attr__( 'Next page', 'kilka-reader' ) . '"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6l6 6-6 6"/></svg></button></nav>';
 	$language = kilka_reader_language( get_post_meta( get_the_ID(), '_kilka_reader_language', true ) );
-	return '<div class="kilka-reader" data-kilka-reader data-reader-align="left">' . $toolbar . '<div class="kilka-reader-body"' . ( $language ? ' lang="' . esc_attr( $language ) . '"' : '' ) . '>' . $content . '</div>' . '</div>';
+	return '<div class="kilka-reader" data-kilka-reader data-reader-align="left">' . $toolbar . kilka_reader_intro_markup( get_the_ID() ) . '<div class="kilka-reader-body"' . ( $language ? ' lang="' . esc_attr( $language ) . '"' : '' ) . '>' . $content . '</div>' . '</div>';
 }, 20 );

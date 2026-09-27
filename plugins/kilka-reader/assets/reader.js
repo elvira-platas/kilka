@@ -61,7 +61,7 @@
     var surface = reader.closest('.kilka-reading') || reader;
     var pagination = window.kilkaReaderPagination ? window.kilkaReaderPagination(reader, surface, body) : null;
     if (colors) {
-      surface.dataset.readerColor = 'cream';
+      surface.dataset.readerColor = 'light';
       colors.addEventListener('click', function (event) {
         var button = event.target.closest('button[data-reader-color-option]');
         if (!button) return;
@@ -140,17 +140,17 @@
         var selection = window.getSelection();
         return selection && !selection.isCollapsed;
       }
-      body.addEventListener('pointerdown', function (event) {
+      reader.addEventListener('pointerdown', function (event) {
         clearTimeout(tapTimer);
         pointer = {x: event.clientX, y: event.clientY, scroll: surface.scrollTop, time: Date.now(), moved: false, selected: hasSelection()};
       });
-      body.addEventListener('pointermove', function (event) {
+      reader.addEventListener('pointermove', function (event) {
         if (pointer && Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) > 8) pointer.moved = true;
       });
-      body.addEventListener('pointercancel', function () { if (pointer) pointer.moved = true; });
-      body.addEventListener('dblclick', function () { clearTimeout(tapTimer); });
+      reader.addEventListener('pointercancel', function () { if (pointer) pointer.moved = true; });
+      reader.addEventListener('dblclick', function () { clearTimeout(tapTimer); });
       surface.addEventListener('scroll', function () { clearTimeout(tapTimer); }, {passive: true});
-      body.addEventListener('click', function (event) {
+      reader.addEventListener('click', function (event) {
         if (document.fullscreenElement !== root || event.detail > 1 || hasSelection()) return;
         if (event.target.closest('a, button, input, textarea, select, summary, [role="button"], [contenteditable="true"]')) return;
         var gesture = pointer;
