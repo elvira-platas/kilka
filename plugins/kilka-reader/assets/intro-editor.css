@@ -1,4 +1,4 @@
-.kilka-intro-fields { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; }
+.kilka-intro-fields { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; }
 .kilka-intro-fields label { display: flex; flex-direction: column; gap: 6px; }
 .kilka-intro-preview { width: 100%; overflow: hidden; background: #eee; position: relative; }
 .kilka-intro-preview iframe { border: 0; display: block; transform-origin: top left; background: #fff; }
@@ -6,3 +6,23 @@
 .kilka-reader-admin form { max-width: 1200px; }
 .kilka-reader-admin .kilka-intro-editor { padding: 20px; background: #fff; border: 1px solid #c3c4c7; }
 .kilka-reader-admin .kilka-intro-preview { max-width: 960px; }
+
+[data-intro-break-buttons] { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+[data-intro-break-buttons] .button[aria-pressed="true"] { background: #2271b1; border-color: #2271b1; color: #fff; }
+
+.kilka-intro-workspace { display: grid; gap: 24px; margin-top: 20px; align-items: start; }
+.kilka-intro-workspace > * { min-width: 0; }
+.kilka-intro-sections details { border-bottom: 1px solid #dcdcde; }
+.kilka-intro-sections summary { padding: 14px 4px; font-size: 16px; font-weight: 600; cursor: pointer; }
+.kilka-intro-sections summary:focus-visible { outline: 2px solid #2271b1; outline-offset: 2px; }
+.kilka-intro-sections details > .kilka-intro-fields { padding: 4px 4px 20px; }
+.kilka-intro-fields input:not([type="checkbox"]):not([type="color"]),
+.kilka-intro-fields textarea, .kilka-intro-fields select { width: 100%; min-width: 0; box-sizing: border-box; }
+.kilka-intro-fields fieldset { min-width: 0; margin: 0; padding: 12px; border: 1px solid #dcdcde; }
+.kilka-intro-fields legend { font-weight: 600; padding: 0 4px; }
+.kilka-intro-fields label.kilka-intro-check { flex-direction: row; align-items: center; }
+.kilka-intro-preview-panel > p:first-child { margin-top: 0; }
+@media (min-width: 1200px) {
+  .kilka-intro-workspace { grid-template-columns: minmax(300px, 2fr) minmax(0, 3fr); }
+  .kilka-intro-preview-panel { position: sticky; top: 48px; }
+}
