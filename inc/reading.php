@@ -63,3 +63,9 @@ function kilka_register_reading_block_styles() {
 	) );
 }
 add_action( 'init', 'kilka_register_reading_block_styles' );
+
+/** Keep the reader entry pattern easy to find in the inserter. */
+function kilka_register_reader_pattern_category() {
+	register_block_pattern_category( 'kilka-reader', array( 'label' => __( 'Reader', 'kilka' ) ) );
+}
+add_action( 'init', 'kilka_register_reader_pattern_category' );

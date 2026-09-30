@@ -77,3 +77,38 @@ p.is-style-kilka-reading-byline {
   max-width: 70ch;
   margin-inline: auto;
 }
+
+/* A calm entry link to a reading document, without a persistent underline. */
+.kilka-reading-entry a,
+.kilka-reading-entry a:hover,
+.kilka-reading-entry a:focus,
+.kilka-reading-entry a:active {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.kilka-reading-entry a:focus-visible {
+  outline: 2px solid var(--kilka-focus);
+  outline-offset: 4px;
+}
+
+.kilka-reading-entry__arrow,
+.kilka-reading-entry a:not(:has(.kilka-reading-entry__arrow))::after {
+  display: block;
+  flex: 0 0 22px;
+  align-self: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  line-height: 0;
+  background-color: currentColor;
+  /* Match the shared forward arrow, while keeping editable core-block HTML. */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.kilka-reading-entry a:not(:has(.kilka-reading-entry__arrow))::after { content: ""; }

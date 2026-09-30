@@ -624,3 +624,5 @@ if ( ! function_exists( 'kilka_append_world_notes_menu_item' ) ) :
 	}
 endif;
 add_filter( 'wp_nav_menu_items', 'kilka_append_world_notes_menu_item', 10, 2 );
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/typography.php';
