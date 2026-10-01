@@ -41,3 +41,18 @@ Other project components
 normalize.css and the Underscores starter code are credited in readme.txt.
 The Kilka theme itself is distributed under the GNU General Public License
 version 2 or later, as stated in style.css and readme.txt.
+
+Shafarik (site title)
+---------------------
+Files: assets/fonts/shafarik/
+Copyright 2025 The Shafarik Project Authors.
+License: SIL Open Font License 1.1 (included as OFL.txt).
+Source: https://github.com/google/fonts/tree/main/ofl/shafarik
+Local Latin and Cyrillic WOFF2 subsets; no external requests at runtime.
+
+Kelly Slab (announcements)
+-------------------------
+Files: assets/fonts/kelly-slab/
+License: SIL Open Font License 1.1 (included as OFL.txt).
+Source: https://github.com/google/fonts/tree/main/ofl/kellyslab
+Local Latin and Cyrillic WOFF2 subsets; independent of companion plugins.

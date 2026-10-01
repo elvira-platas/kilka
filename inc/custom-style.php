@@ -7,9 +7,20 @@ function kilka_custom_css() {
         $header_text_color = '000000';
     }
 
-    $site_title_font = get_theme_mod( 'kilka_site_title_font', 'Roboto' );
+    $site_title_font = get_theme_mod( 'kilka_site_title_font', 'system-ui' );
     if ( function_exists( 'kilka_sanitize_site_title_font' ) ) {
         $site_title_font = kilka_sanitize_site_title_font( $site_title_font );
+    }
+
+    $announcement_font = kilka_sanitize_announcement_font( get_theme_mod( 'kilka_announcement_font', 'system-ui' ) );
+    $announcement_family = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    $announcement_weight = '500';
+    if ( 'kelly-slab' === $announcement_font ) {
+        $announcement_family = '"Kilka Announcement Kelly Slab", serif';
+        $announcement_weight = '400';
+        if ( kilka_get_active_announcement() ) {
+            wp_enqueue_style( 'kilka-announcement-font', get_template_directory_uri() . '/assets/css/announcement-font.css', array(), filemtime( get_template_directory() . '/assets/css/announcement-font.css' ) );
+        }
     }
 
     $site_title_size = min( 100, max( 14, absint( get_theme_mod( 'kilka_site_title_size', 14 ) ) ) );
@@ -24,7 +35,7 @@ function kilka_custom_css() {
         $continue_reading_weight = kilka_sanitize_continue_reading_weight( $continue_reading_weight );
     }
 
-    $kilka_custom_css = '';
+    $kilka_custom_css = '.kilka-site-announcement { font-family: ' . $announcement_family . '; font-weight: ' . $announcement_weight . '; font-synthesis: none; }';
     
     // User-selected light-scheme colors. The scheme layer supplies readable
     // dark defaults until separate dark Customizer colors are introduced.
@@ -46,9 +57,13 @@ function kilka_custom_css() {
     $font_weight = '700'; // Default bold for site title
     
     // Apply the appropriate generic fallback for local serif fonts.
-    if ( in_array( $site_title_font, array( 'Playfair Display', 'Merriweather' ), true ) ) {
+    if ( in_array( $site_title_font, array( 'Playfair Display', 'Merriweather', 'Shafarik' ), true ) ) {
         $font_family = '"' . esc_attr( $site_title_font ) . '", serif';
         $font_weight = '400'; 
+    }
+
+    if ( 'Shafarik' === $site_title_font ) {
+        wp_enqueue_style( 'kilka-site-title-font', get_template_directory_uri() . '/assets/css/site-title-font.css', array(), filemtime( get_template_directory() . '/assets/css/site-title-font.css' ) );
     }
 
     $kilka_custom_css .= '
@@ -56,6 +71,7 @@ function kilka_custom_css() {
             font-family: '.$font_family.' !important;
             font-size: '.esc_attr( $site_title_size ).'px !important;
             font-weight: '.$font_weight.' !important;
+            font-synthesis: none;
         }
     ';
 

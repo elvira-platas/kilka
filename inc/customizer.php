@@ -11,14 +11,16 @@
  * @return array
  */
 function kilka_get_site_title_font_choices() {
-	return array(
-		'Roboto'           => __( 'Roboto (Default)', 'kilka' ),
-		'system-ui'        => __( 'System UI (Fastest)', 'kilka' ),
-		'Montserrat'       => __( 'Montserrat', 'kilka' ),
-		'Oswald'           => __( 'Oswald', 'kilka' ),
-		'Playfair Display' => __( 'Playfair Display', 'kilka' ),
-		'Merriweather'     => __( 'Merriweather', 'kilka' ),
+	$fonts = array(
+		'system-ui' => __( 'System UI (Default)', 'kilka' ),
+		'Shafarik'  => __( 'Shafarik', 'kilka' ),
 	);
+	// Keep an existing choice visible until the owner replaces it.
+	$saved = get_theme_mod( 'kilka_site_title_font', '' );
+	if ( in_array( $saved, array( 'Roboto', 'Montserrat', 'Oswald', 'Playfair Display', 'Merriweather' ), true ) ) {
+		$fonts[ $saved ] = $saved;
+	}
+	return $fonts;
 }
 
 /**
@@ -28,9 +30,14 @@ function kilka_get_site_title_font_choices() {
  * @return string
  */
 function kilka_sanitize_site_title_font( $value ) {
-	$fonts = kilka_get_site_title_font_choices();
+	// Do not read theme mods here: Customizer preview calls this sanitizer.
+	$fonts = array( 'system-ui', 'Shafarik', 'Roboto', 'Montserrat', 'Oswald', 'Playfair Display', 'Merriweather' );
+	return is_string( $value ) && in_array( $value, $fonts, true ) ? $value : 'system-ui';
+}
 
-	return array_key_exists( $value, $fonts ) ? $value : 'Roboto';
+/** Restrict announcement typography without reading previewed settings. */
+function kilka_sanitize_announcement_font( $value ) {
+	return in_array( $value, array( 'system-ui', 'kelly-slab' ), true ) ? $value : 'system-ui';
 }
 
 /**
@@ -151,6 +158,18 @@ function kilka_customize_register( $wp_customize ) {
 		) );
 	}
 
+	$wp_customize->add_setting( 'kilka_announcement_font', array(
+		'default' => 'system-ui',
+		'sanitize_callback' => 'kilka_sanitize_announcement_font',
+		'transport' => 'refresh',
+	) );
+	$wp_customize->add_control( 'kilka_announcement_font', array(
+		'label' => __( 'Announcement font', 'kilka' ),
+		'section' => 'kilka_announcement_section',
+		'type' => 'select',
+		'choices' => array( 'system-ui' => __( 'System UI (Default)', 'kilka' ), 'kelly-slab' => __( 'Kelly Slab', 'kilka' ) ),
+	) );
+
 	// Keep the header text color with the other site identity controls.
 	$header_text_color_control = $wp_customize->get_control( 'header_textcolor' );
 	if ( $header_text_color_control ) {
@@ -184,7 +203,7 @@ function kilka_customize_register( $wp_customize ) {
 
 	// Keep site-title typography with the related core identity controls.
 	$wp_customize->add_setting( 'kilka_site_title_font', array(
-		'default'           => 'Roboto',
+		'default'           => 'system-ui',
 		'sanitize_callback' => 'kilka_sanitize_site_title_font',
 	) );
 	$wp_customize->add_control( 'kilka_site_title_font', array(

@@ -2873,8 +2873,8 @@ body.kilka-exhibition-information-open {
   margin: 0 0 40px;
   padding: 20px 12px;
   border-block: 1px solid var(--kilka-border-soft);
-  color: var(--kilka-focus);
-  font-size: 17px;
+  color: var(--kilka-text);
+  font-size: var(--kilka-announcement-size, 17px);
   font-weight: 500;
   line-height: 1.7;
   text-align: center;
@@ -2886,14 +2886,14 @@ body.kilka-exhibition-information-open {
 }
 
 .kilka-site-announcement a {
-  color: var(--kilka-focus);
+  color: var(--kilka-text);
   text-decoration: none;
   transition: none;
 }
 
 .kilka-site-announcement a:hover,
 .kilka-site-announcement a:focus-visible {
-  color: var(--kilka-focus);
+  color: var(--kilka-text);
   text-decoration: none;
 }
 
@@ -2910,7 +2910,7 @@ body.kilka-exhibition-information-open {
   .kilka-site-announcement {
     margin-bottom: 32px;
     padding: 16px 8px;
-    font-size: 16px;
+    font-size: var(--kilka-announcement-mobile-size, 16px);
     line-height: 1.65;
   }
 }

@@ -487,6 +487,16 @@ pre {
   background-color: transparent;
 }
 
+/* Keep publication and source links within the Second Blog palette. */
+.kilka-second-blog-context :is(article.type-world_note, .second-blog-intro, .second-blog-source-note) a:is(:focus, :active) {
+  color: var(--kilka-second-blog-accent-hover);
+}
+
+.kilka-second-blog-context :is(article.type-world_note, .second-blog-intro, .second-blog-source-note) a:focus-visible {
+  outline: 2px solid var(--kilka-second-blog-accent-hover);
+  outline-offset: 4px;
+}
+
 .second-blog-description {
   color: var(--kilka-reading-text);
 }
