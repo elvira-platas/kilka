@@ -30,6 +30,14 @@ Deactivation preserves content and metadata. An optional fullscreen button is av
 4. Open Reader in the admin menu to configure the introduction, related publication and text language. Save reader settings.
 5. Use Edit story text for the WordPress content editor. Reader also offers Add reading document, which creates a draft with the Reading template already selected.
 
+== DOCX import (first version) ==
+
+Reader > Import DOCX creates a new draft with the Reading template. Upload a text-only DOCX (up to 2 MB, or the server limit if lower), optionally supply a title, then review the imported text in the editor. The source file is processed locally in temporary upload storage and is not added to the public media library.
+
+Paragraphs, bold, italic, explicit line breaks and Heading 1/2 are supported. Heading styles become H2/H3, including inherited styles. The original title text is retained. Fonts, font sizes, colors and page layout are not imported. Page/section breaks and headers/footers produce omission notices. Chapters are preserved as headings; automatic table-of-contents navigation is not included yet.
+
+Images, tables, lists, links, footnotes/endnotes, equations, tracked changes, comments and other unsupported semantic formatting stop the import before a draft is created. Protected files, macro-enabled documents and invalid packages are rejected. Package limits: 512 entries, 20 MB total expanded size, 2 MB per part. TXT import and replacement of existing documents are not included in this version.
+
 == AI Assistance ==
 
 OpenAI Codex substantially assisted code generation, review, documentation and testing. Elvira directed development and is responsible for published releases.

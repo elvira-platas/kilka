@@ -23,6 +23,7 @@ define( 'KILKA_READER_TEMPLATE', 'page-templates/reading.php' );
 require_once __DIR__ . '/languages.php';
 require_once __DIR__ . '/includes/intro.php';
 require_once __DIR__ . '/includes/admin.php';
+require_once __DIR__ . '/includes/import.php';
 
 /** Keep existing reading pages and URLs; no content migration is required. */
 function kilka_reader_is_reading() {

@@ -46,7 +46,9 @@ function kilka_reader_admin_screen() {
 	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="kilka_reader_create">';
 	wp_nonce_field( 'kilka_reader_create' );
 	submit_button( __( 'Add reading document', 'kilka-reader' ), 'secondary', 'submit', false );
-	echo '</form><br><table class="widefat striped"><thead><tr><th>' . esc_html__( 'Document', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Introduction', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Actions', 'kilka-reader' ) . '</th></tr></thead><tbody>';
+	echo '</form><br>';
+	kilka_reader_import_form();
+	echo '<br><table class="widefat striped"><thead><tr><th>' . esc_html__( 'Document', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Introduction', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Actions', 'kilka-reader' ) . '</th></tr></thead><tbody>';
 	$current = isset( $_GET['paged'] ) && is_scalar( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
 	$args = array( 'post_type' => 'page', 'post_status' => array( 'publish', 'draft', 'pending', 'private', 'future' ), 'posts_per_page' => 20, 'paged' => $current, 'meta_key' => '_wp_page_template', 'meta_value' => KILKA_READER_TEMPLATE );
 	if ( ! current_user_can( 'edit_others_pages' ) ) { $args['author'] = get_current_user_id(); }
