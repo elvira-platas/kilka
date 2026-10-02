@@ -39,6 +39,9 @@ function kilka_reader_admin_screen() {
 		echo '</form></div>';
 		return;
 	}
+	if ( isset( $_GET['trashed'] ) ) {
+		echo '<div class="notice notice-success"><p>' . esc_html__( 'Reading document moved to Trash.', 'kilka-reader' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=page&post_status=trash' ) ) . '">' . esc_html__( 'Open Trash to restore it', 'kilka-reader' ) . '</a></p></div>';
+	}
 	echo '<p>' . esc_html__( 'Choose a document to set its opening image and text, or edit the story itself.', 'kilka-reader' ) . '</p>';
 	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="kilka_reader_create">';
 	wp_nonce_field( 'kilka_reader_create' );
@@ -51,7 +54,13 @@ function kilka_reader_admin_screen() {
 	foreach ( $query->posts as $post ) {
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) { continue; }
 		$status = get_post_status_object( $post->post_status );
-		echo '<tr><td><strong><a href="' . esc_url( kilka_reader_admin_url( $post->ID ) ) . '">' . esc_html( get_the_title( $post ) ?: __( '(Untitled)', 'kilka-reader' ) ) . '</a></strong><br><code>/' . esc_html( $post->post_name ) . '/</code><br>' . esc_html( $status ? $status->label : '' ) . '</td><td>' . esc_html( kilka_reader_intro_settings( $post->ID )['enabled'] ? __( 'Space', 'kilka-reader' ) : __( 'None', 'kilka-reader' ) ) . '</td><td><a class="button" href="' . esc_url( kilka_reader_admin_url( $post->ID ) ) . '">' . esc_html__( 'Reader settings', 'kilka-reader' ) . '</a> <a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . esc_html__( 'Edit story text', 'kilka-reader' ) . '</a> | <a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html__( 'View', 'kilka-reader' ) . '</a></td></tr>';
+		echo '<tr><td><strong><a href="' . esc_url( kilka_reader_admin_url( $post->ID ) ) . '">' . esc_html( get_the_title( $post ) ?: __( '(Untitled)', 'kilka-reader' ) ) . '</a></strong><br><code>/' . esc_html( $post->post_name ) . '/</code><br>' . esc_html( $status ? $status->label : '' ) . '</td><td>' . esc_html( kilka_reader_intro_settings( $post->ID )['enabled'] ? __( 'Space', 'kilka-reader' ) : __( 'None', 'kilka-reader' ) ) . '</td><td><a class="button" href="' . esc_url( kilka_reader_admin_url( $post->ID ) ) . '">' . esc_html__( 'Reader settings', 'kilka-reader' ) . '</a> <a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . esc_html__( 'Edit story text', 'kilka-reader' ) . '</a> | <a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html__( 'View', 'kilka-reader' ) . '</a>';
+		if ( EMPTY_TRASH_DAYS && current_user_can( 'delete_post', $post->ID ) ) {
+			echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" style="display:inline"><input type="hidden" name="action" value="kilka_reader_trash"><input type="hidden" name="document" value="' . esc_attr( $post->ID ) . '">';
+			wp_nonce_field( 'kilka_reader_trash_' . $post->ID );
+			echo ' | <button type="submit" class="button-link button-link-delete">' . esc_html__( 'Move to Trash', 'kilka-reader' ) . '</button></form>';
+		}
+		echo '</td></tr>';
 	}
 	if ( ! $query->posts ) { echo '<tr><td colspan="3">' . esc_html__( 'No reading documents yet.', 'kilka-reader' ) . '</td></tr>'; }
 	echo '</tbody></table>';
@@ -77,5 +86,20 @@ add_action( 'admin_post_kilka_reader_create', function () {
 	$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => __( 'New reading document', 'kilka-reader' ), 'meta_input' => array( '_wp_page_template' => KILKA_READER_TEMPLATE ) ), true );
 	if ( is_wp_error( $id ) ) { wp_die( esc_html( $id->get_error_message() ) ); }
 	wp_safe_redirect( get_edit_post_link( $id, 'raw' ) );
+	exit;
+} );
+
+add_action( 'admin_post_kilka_reader_trash', function () {
+	$id = isset( $_POST['document'] ) && is_scalar( $_POST['document'] ) ? absint( $_POST['document'] ) : 0;
+	kilka_reader_admin_document( $id );
+	check_admin_referer( 'kilka_reader_trash_' . $id );
+	// Never turn this reversible action into permanent deletion when Trash is disabled.
+	if ( ! EMPTY_TRASH_DAYS || ! current_user_can( 'delete_post', $id ) ) {
+		wp_die( esc_html__( 'This reading document cannot be moved to Trash.', 'kilka-reader' ), '', array( 'response' => 403 ) );
+	}
+	if ( ! wp_trash_post( $id ) ) {
+		wp_die( esc_html__( 'The reading document could not be moved to Trash.', 'kilka-reader' ) );
+	}
+	wp_safe_redirect( add_query_arg( 'trashed', 1, kilka_reader_admin_url() ) );
 	exit;
 } );
