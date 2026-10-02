@@ -98,6 +98,19 @@
     overflow: visible;
     will-change: transform;
   }
+  /* Both directions move the upper sheet across the same exposed right edge. */
+  .kilka-reader-turn-sheet::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: clamp(24px, 4vw, 48px);
+    background: linear-gradient(to right, rgba(0, 0, 0, .26), rgba(0, 0, 0, .10) 30%, rgba(0, 0, 0, 0));
+    opacity: var(--reader-turn-shadow, 0);
+    pointer-events: none;
+    will-change: opacity;
+  }
   .kilka-reader-turn-page {
     position: absolute;
     inset: 0;
@@ -152,4 +165,12 @@
   .kilka-reader-pages [data-reader-turn="previous"] { left: calc(24px + env(safe-area-inset-left, 0px)); }
   .kilka-reader-pages [data-reader-turn="next"] { right: calc(24px + env(safe-area-inset-right, 0px)); }
   .kilka-reader-pages button svg { width: 22px; height: 22px; }
+}
+
+/* The full-screen sheet passes underneath controls, not behind opaque strips. */
+@media screen {
+  .kilka-reading[data-reader-turning] .kilka-reader-dock,
+  .kilka-reading[data-reader-turning] .kilka-reader-pages {
+    background: transparent;
+  }
 }

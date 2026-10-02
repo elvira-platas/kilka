@@ -32,6 +32,7 @@
       clickTimer = setTimeout(function () { suppressClick = false; }, 0);
     }
     function removeStage() {
+      surface.removeAttribute('data-reader-turning');
       cancelDragFrame();
       clearClickSuppression();
       body.style.removeProperty('visibility');
@@ -135,6 +136,7 @@
       surfaceOverflowChanged = true;
       surface.style.setProperty('overflow', 'visible', 'important');
       reader.append(turnStage);
+      surface.setAttribute('data-reader-turning', '');
       if (intro) intro.style.visibility = 'hidden';
       body.style.visibility = 'hidden';
       setSlide(0, viewport.clientHeight / 2);
@@ -147,12 +149,16 @@
       var nextPage = turnStage.dataset.direction === 'next';
       var offset = -width * (nextPage ? progress : 1 - progress);
       turnSheet.style.transform = 'translate3d(' + offset + 'px,0,0)';
+      // Fade only the edge shadow; page text and geometry remain unchanged.
+      var lift = Math.min(1, progress / 0.14, (1 - progress) / 0.14);
+      turnSheet.style.setProperty('--reader-turn-shadow', lift * lift * (3 - 2 * lift));
     }
 
     function settleSlide(from, destination, pointerY, commit) {
       var serial = ++turnSerial;
       var start = null;
       var duration = 110 + Math.abs(destination - from) * 230;
+      var startShadow = Number(turnSheet.style.getPropertyValue('--reader-turn-shadow')) || 0;
       function step(now) {
         if (serial !== turnSerial) return;
         // Start the clock when the first frame is actually ready to paint.
@@ -160,6 +166,11 @@
         var elapsed = Math.min(1, (now - start) / duration);
         var eased = destination ? 1 - Math.pow(1 - elapsed, 3) : Math.pow(elapsed, 3);
         setSlide(from + (destination - from) * eased, pointerY);
+        if (!commit) {
+          // Return motion accelerates near its end; fade independently to avoid a snap.
+          var fade = elapsed * elapsed * (3 - 2 * elapsed);
+          turnSheet.style.setProperty('--reader-turn-shadow', startShadow * (1 - fade));
+        }
         if (elapsed < 1) { turnFrame = requestAnimationFrame(step); return; }
         var target = turnTarget;
         turnTarget = null;
