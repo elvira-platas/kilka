@@ -122,7 +122,8 @@ function kilka_note_editor_config() {
 		'entryFont' => $post ? kilka_note_sanitize_font( get_post_meta( $post->ID, '_kilka_note_font', true ) ) : 'plex',
 		'titleFont' => $post ? kilka_note_sanitize_title_font( get_post_meta( $post->ID, '_kilka_note_title_font', true ) ) : '',
 		'labels'    => array(
-			'panel'     => __( 'Second Blog typography', 'kilka-second-blog' ),
+			'panel'     => __( 'Fonts', 'kilka-second-blog' ),
+			'selectBlock' => __( 'Click a paragraph or heading in the text to change its font here.', 'kilka-second-blog' ),
 			'entry'     => __( 'Entry text font', 'kilka-second-blog' ),
 			'title'     => __( 'Entry title font', 'kilka-second-blog' ),
 			'paragraph' => __( 'Paragraph font', 'kilka-second-blog' ),
