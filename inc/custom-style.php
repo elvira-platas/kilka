@@ -1,6 +1,8 @@
 <?php
 function kilka_custom_css() {
-    wp_enqueue_style( 'kilka-custom', get_template_directory_uri() . '/assets/css/custom-style.css' );
+    // Keep Customizer CSS in the style dependency chain without an empty request.
+    wp_register_style( 'kilka-custom', false, array( 'kilka-style' ), null );
+    wp_enqueue_style( 'kilka-custom' );
 
     $header_text_color = sanitize_hex_color_no_hash( get_header_textcolor() );
     if ( ! $header_text_color ) {
@@ -56,13 +58,9 @@ function kilka_custom_css() {
     $font_family = $site_title_font === 'system-ui' ? 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '"' . esc_attr( $site_title_font ) . '", sans-serif';
     $font_weight = '700'; // Default bold for site title
     
-    // Apply the appropriate generic fallback for local serif fonts.
-    if ( in_array( $site_title_font, array( 'Playfair Display', 'Merriweather', 'Shafarik' ), true ) ) {
+    if ( 'Shafarik' === $site_title_font ) {
         $font_family = '"' . esc_attr( $site_title_font ) . '", serif';
         $font_weight = '400'; 
-    }
-
-    if ( 'Shafarik' === $site_title_font ) {
         wp_enqueue_style( 'kilka-site-title-font', get_template_directory_uri() . '/assets/css/site-title-font.css', array(), filemtime( get_template_directory() . '/assets/css/site-title-font.css' ) );
     }
 

@@ -57,7 +57,7 @@ function kilka_get_contextual_sidebar_id() {
  * @return bool
  */
 function kilka_is_exhibition_context() {
-	return is_singular( 'kilka_exhibition' ) || is_page_template( 'page-templates/exhibition-prototype.php' );
+	return is_singular( 'kilka_exhibition' );
 }
 
 /**

@@ -6,8 +6,9 @@ the package and are not loaded from a third-party CDN at runtime.
 
 Bootstrap 4.6.2
 ---------------
-Files: assets/css/bootstrap.css, assets/css/bootstrap.min.css,
-assets/js/bootstrap.js, assets/js/bootstrap.min.js
+Packaged file: assets/css/bootstrap.min.css
+The repository also retains the unminified CSS and unused JavaScript sources;
+these are excluded from the installable theme ZIP.
 
 Copyright (c) 2011-2022 The Bootstrap Authors
 License: MIT
@@ -17,8 +18,8 @@ License text: https://github.com/twbs/bootstrap/blob/v4.6.2/LICENSE
 
 SlickNav 1.0.10
 ---------------
-Files: assets/css/slicknav.css, assets/js/jquery.slicknav.js,
-assets/js/jquery.slicknav.min.js
+Packaged files: assets/css/slicknav.min.css, assets/js/jquery.slicknav.min.js
+Unminified CSS and JavaScript sources are retained in the repository only.
 
 Copyright (c) 2016 Josh Cope
 License: MIT
@@ -26,8 +27,8 @@ Project: http://slicknav.io/
 
 Fonts
 -----
-The theme includes local font files for Roboto, Montserrat, Oswald, Playfair
-Display, and Merriweather under assets/fonts/. Latin and Cyrillic subsets are
+The theme includes local font files for Roboto under assets/fonts/google/.
+Shafarik and Kelly Slab are listed separately below. Latin and Cyrillic subsets are
 bundled locally; the theme does not request Google Fonts or any other font
 resource from an external server at runtime.
 

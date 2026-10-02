@@ -369,7 +369,7 @@ hr.wp-block-separator{
 }
 
 .wp-block-latest-posts.is-grid li > a{
-	font-family: 'Montserrat';
+	font-family: Roboto, sans-serif;
 	font-size: 1.25em;
 	font-weight: normal;
 	margin: 1rem 0 0 0;
@@ -589,7 +589,7 @@ hr.wp-block-separator.has-accent-color-background-color{
 }
 
 .wp-block-latest-posts.is-grid li > a{
-	font-family: 'Montserrat';
+	font-family: Roboto, sans-serif;
 	font-size: 1.25em;
 	font-weight: normal;
 	margin: 1rem 0 0 0;

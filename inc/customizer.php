@@ -11,16 +11,10 @@
  * @return array
  */
 function kilka_get_site_title_font_choices() {
-	$fonts = array(
+	return array(
 		'system-ui' => __( 'System UI (Default)', 'kilka' ),
 		'Shafarik'  => __( 'Shafarik', 'kilka' ),
 	);
-	// Keep an existing choice visible until the owner replaces it.
-	$saved = get_theme_mod( 'kilka_site_title_font', '' );
-	if ( in_array( $saved, array( 'Roboto', 'Montserrat', 'Oswald', 'Playfair Display', 'Merriweather' ), true ) ) {
-		$fonts[ $saved ] = $saved;
-	}
-	return $fonts;
 }
 
 /**
@@ -31,7 +25,7 @@ function kilka_get_site_title_font_choices() {
  */
 function kilka_sanitize_site_title_font( $value ) {
 	// Do not read theme mods here: Customizer preview calls this sanitizer.
-	$fonts = array( 'system-ui', 'Shafarik', 'Roboto', 'Montserrat', 'Oswald', 'Playfair Display', 'Merriweather' );
+	$fonts = array( 'system-ui', 'Shafarik' );
 	return is_string( $value ) && in_array( $value, $fonts, true ) ? $value : 'system-ui';
 }
 

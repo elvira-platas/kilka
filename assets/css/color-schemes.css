@@ -711,10 +711,6 @@ pre {
   box-shadow: var(--kilka-control-shadow-hover);
 }
 
-.kilka-exhibition__home:hover,
-.kilka-exhibition__home:focus {
-  color: var(--kilka-link-hover);
-}
 
 .kilka-exhibition__information {
   background: var(--kilka-overlay);

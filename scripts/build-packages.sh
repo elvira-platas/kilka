@@ -122,6 +122,8 @@ for plugin_slug in "${PLUGIN_SLUGS[@]}"; do
 		done > "${PACKAGE_EXCLUDES_DIR}/${plugin_slug}-untracked"
 done
 
+# Keep library source copies in Git; ship only assets used by the theme.
+# Bootstrap JavaScript is not used. Bootstrap CSS and SlickNav remain required.
 # Build theme package without repository-only and plugin files.
 rsync -a \
 	--exclude ".git/" \
@@ -149,6 +151,12 @@ rsync -a \
 	--exclude ".gitignore" \
 	--exclude "AGENTS.md" \
 	--exclude "README.md" \
+	--exclude "/BLOG-STYLES-REFERENCE.md" \
+	--exclude "/assets/css/bootstrap.css" \
+	--exclude "/assets/js/bootstrap.js" \
+	--exclude "/assets/js/bootstrap.min.js" \
+	--exclude "/assets/css/slicknav.css" \
+	--exclude "/assets/js/jquery.slicknav.js" \
 	--exclude-from "${PACKAGE_EXCLUDES_DIR}/theme-untracked" \
 	"${ROOT_DIR}/" "${THEME_STAGING_DIR}/"
 

@@ -229,9 +229,7 @@ function kilka_scripts() {
 	$kilka_script_version = filemtime( get_template_directory() . '/assets/js/kilka-script.js' );
 	wp_enqueue_style( 'kilka-default-block', get_template_directory_uri() . '/assets/css/default-block.css', array(), $kilka_default_block_version, 'all');
 	wp_enqueue_style( 'kilka-style', get_template_directory_uri() . '/assets/css/kilka-style.css', array(), $kilka_style_version, 'all');
-	wp_enqueue_style( 'kilka-style', get_stylesheet_uri(), array(), KILKA_VERSION );
 
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), '4.6.2', true );
 	wp_enqueue_script( 'slicknav', get_template_directory_uri() . '/assets/js/jquery.slicknav.min.js', array('jquery'), '1.0.10', true );
 	wp_enqueue_script( 'kilka-script', get_template_directory_uri() . '/assets/js/kilka-script.js', array('jquery'), $kilka_script_version, true );
 
