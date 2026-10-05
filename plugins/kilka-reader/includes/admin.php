@@ -42,13 +42,19 @@ function kilka_reader_admin_screen() {
 	if ( isset( $_GET['trashed'] ) ) {
 		echo '<div class="notice notice-success"><p>' . esc_html__( 'Reading document moved to Trash.', 'kilka-reader' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=page&post_status=trash' ) ) . '">' . esc_html__( 'Open Trash to restore it', 'kilka-reader' ) . '</a></p></div>';
 	}
-	echo '<p>' . esc_html__( 'Choose a document to set its opening image and text, or edit the story itself.', 'kilka-reader' ) . '</p>';
+	$import_open = isset( $_GET['create'] ) && 'import' === $_GET['create'];
+	echo '<section class="card" style="max-width:none;margin:16px 0 24px;padding:20px" aria-labelledby="kilka-reader-new"><h2 id="kilka-reader-new">' . esc_html__( 'New document', 'kilka-reader' ) . '</h2>';
+	echo '<p>' . esc_html__( 'Upload a file or paste your whole story into the editor. Both options create a draft for you to review.', 'kilka-reader' ) . '</p>';
+	echo '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">';
+	echo '<a class="button button-primary button-large" href="' . esc_url( add_query_arg( 'create', 'import', kilka_reader_admin_url() ) ) . '"' . ( $import_open ? ' aria-current="true"' : '' ) . '>' . esc_html__( 'Upload file — DOCX or TXT', 'kilka-reader' ) . '</a>';
 	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="kilka_reader_create">';
 	wp_nonce_field( 'kilka_reader_create' );
-	submit_button( __( 'Add reading document', 'kilka-reader' ), 'secondary', 'submit', false );
-	echo '</form><br>';
-	kilka_reader_import_form();
-	echo '<br><table class="widefat striped"><thead><tr><th>' . esc_html__( 'Document', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Introduction', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Actions', 'kilka-reader' ) . '</th></tr></thead><tbody>';
+	submit_button( __( 'Paste text', 'kilka-reader' ), 'secondary large', 'submit', false );
+	echo '</form></div>';
+	if ( $import_open ) { kilka_reader_import_form(); }
+	echo '</section><h2>' . esc_html__( 'Reading documents', 'kilka-reader' ) . '</h2>';
+	echo '<p>' . esc_html__( 'Choose a document to set its opening image and text, or edit the story itself.', 'kilka-reader' ) . '</p>';
+	echo '<table class="widefat striped"><thead><tr><th>' . esc_html__( 'Document', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Introduction', 'kilka-reader' ) . '</th><th>' . esc_html__( 'Actions', 'kilka-reader' ) . '</th></tr></thead><tbody>';
 	$current = isset( $_GET['paged'] ) && is_scalar( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
 	$args = array( 'post_type' => 'page', 'post_status' => array( 'publish', 'draft', 'pending', 'private', 'future' ), 'posts_per_page' => 20, 'paged' => $current, 'meta_key' => '_wp_page_template', 'meta_value' => KILKA_READER_TEMPLATE );
 	if ( ! current_user_can( 'edit_others_pages' ) ) { $args['author'] = get_current_user_id(); }
@@ -60,7 +66,7 @@ function kilka_reader_admin_screen() {
 		if ( EMPTY_TRASH_DAYS && current_user_can( 'delete_post', $post->ID ) ) {
 			echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" style="display:inline"><input type="hidden" name="action" value="kilka_reader_trash"><input type="hidden" name="document" value="' . esc_attr( $post->ID ) . '">';
 			wp_nonce_field( 'kilka_reader_trash_' . $post->ID );
-			echo ' | <button type="submit" class="button-link button-link-delete">' . esc_html__( 'Move to Trash', 'kilka-reader' ) . '</button></form>';
+			echo ' | <button type="submit" class="button-link" style="color:#646970">' . esc_html__( 'Move to Trash', 'kilka-reader' ) . '</button></form>';
 		}
 		echo '</td></tr>';
 	}

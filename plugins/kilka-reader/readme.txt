@@ -28,11 +28,11 @@ Deactivation preserves content and metadata. An optional fullscreen button is av
 2. Create or edit a Page and choose the Reading template.
 3. Insert the Reading document pattern or keep existing core-block content.
 4. Open Reader in the admin menu to configure the introduction, related publication and text language. Save reader settings.
-5. Use Edit story text for the WordPress content editor. Reader also offers Add reading document, which creates a draft with the Reading template already selected.
+5. Use Edit story text for the WordPress content editor. Reader offers a New document section: Upload file — DOCX or TXT opens the import form; Paste text creates a draft with the Reading template already selected. Paste the whole story into that editor.
 
 == Document import (first version) ==
 
-Reader > Import DOCX or TXT creates a new draft with the Reading template. Upload a text-only DOCX (up to 2 MB, or the server limit if lower), optionally supply a title, then review the imported text in the editor. The source file is processed locally in temporary upload storage and is not added to the public media library.
+Reader > New document > Upload file — DOCX or TXT creates a new draft with the Reading template. Upload a text-only DOCX (up to 2 MB, or the server limit if lower), optionally supply a title, then review the imported text in the editor. The source file is processed locally in temporary upload storage and is not added to the public media library.
 
 Paragraphs, bold, italic, explicit line breaks and Heading 1/2 are supported. Heading styles become H2/H3, including inherited styles. The original title text is retained. Fonts, font sizes, colors and page layout are not imported. Page/section breaks and headers/footers produce omission notices. Chapters are preserved as headings; automatic table-of-contents navigation is not included yet.
 

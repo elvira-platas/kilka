@@ -254,7 +254,7 @@ function kilka_reader_import_txt( $file ) {
 
 function kilka_reader_import_form() {
 	$limit = size_format( kilka_reader_import_limit() );
-	echo '<details><summary>' . esc_html__( 'Import DOCX or TXT', 'kilka-reader' ) . '</summary>';
+	echo '<h3>' . esc_html__( 'Upload file', 'kilka-reader' ) . '</h3>';
 	echo '<p>' . esc_html__( 'Upload a story as a new draft. DOCX preserves paragraphs, bold, italic and Heading 1/2. Fonts and page layout are not imported. Review the text before publishing.', 'kilka-reader' ) . '</p>';
 	echo '<p>' . esc_html__( 'DOCX: this first version does not accept images, tables, lists, links, notes or tracked changes. Use a text-only DOCX copy.', 'kilka-reader' ) . '</p>';
 	echo '<p>' . esc_html__( 'TXT must use UTF-8. Blank lines separate paragraphs; single line breaks are preserved. Formatting and chapter headings can be added in the editor. Line breaks copied from a PDF will not be joined automatically.', 'kilka-reader' ) . '</p>';
@@ -263,7 +263,7 @@ function kilka_reader_import_form() {
 	echo '<p><label for="kilka-import-title">' . esc_html__( 'Document title (optional)', 'kilka-reader' ) . '</label><br><input class="regular-text" id="kilka-import-title" name="document_title" type="text" maxlength="200"></p>';
 	echo '<p><label for="kilka-import-file">' . esc_html( sprintf( __( 'DOCX or UTF-8 TXT file — maximum %s', 'kilka-reader' ), $limit ) ) . '</label><br><input id="kilka-import-file" type="file" name="document_file" accept=".docx,.txt,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" required></p>';
 	submit_button( __( 'Import as draft', 'kilka-reader' ), 'secondary', 'submit', false );
-	echo '</form></details>';
+	echo '</form>';
 }
 add_action( 'admin_post_kilka_reader_import_docx', function () {
 	if ( ! current_user_can( 'edit_pages' ) ) { wp_die( esc_html__( 'You cannot create reading documents.', 'kilka-reader' ), '', array( 'response' => 403 ) ); }
