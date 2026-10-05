@@ -1,5 +1,5 @@
 <?php
-/** Conservative, server-local DOCX import into a new reading draft. */
+/** Conservative, server-local document import into a new reading draft. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function kilka_reader_import_limit() {
@@ -218,15 +218,50 @@ function kilka_reader_import_docx( $file ) {
 	return array( 'content' => $content, 'warnings' => array_unique( $warnings ) );
 }
 
+/** Plain UTF-8 text: blank lines separate paragraphs; single breaks stay inside. */
+function kilka_reader_import_txt( $file ) {
+	if ( ! is_file( $file ) || filesize( $file ) > kilka_reader_import_limit() ) {
+		return kilka_reader_import_error( __( 'The file exceeds the upload limit.', 'kilka-reader' ) );
+	}
+	$text = file_get_contents( $file );
+	if ( false === $text ) {
+		return kilka_reader_import_error( __( 'The text file could not be read.', 'kilka-reader' ) );
+	}
+	if ( 1 !== preg_match( '//u', $text ) ) {
+		return kilka_reader_import_error( __( 'This TXT file is not valid UTF-8. Save a UTF-8 copy in your text editor and try again. No draft was created.', 'kilka-reader' ) );
+	}
+	if ( 0 === strpos( $text, "\xEF\xBB\xBF" ) ) { $text = substr( $text, 3 ); }
+	if ( preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $text ) ) {
+		return kilka_reader_import_error( __( 'This file contains unsupported control characters. Please use a plain UTF-8 TXT file. No draft was created.', 'kilka-reader' ) );
+	}
+	if ( ! preg_match( '/[^\s\p{Z}]/u', $text ) ) {
+		return kilka_reader_import_error( __( 'The document has no readable text.', 'kilka-reader' ) );
+	}
+	$text = str_replace( array( "\r\n", "\r" ), "\n", $text );
+	// Remove only empty boundary lines, not spaces belonging to the text itself.
+	$text = preg_replace( '/\A(?:[ \t]*\n)+|(?:\n[ \t]*)+\z/', '', $text );
+	$paragraphs = preg_split( '/\n(?:[ \t]*\n)+/', $text );
+	$blocks = array();
+	foreach ( $paragraphs as $paragraph ) {
+		$html = str_replace( "\n", '<br>', htmlspecialchars( $paragraph, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ) );
+		$blocks[] = "<!-- wp:paragraph -->\n<p>" . $html . "</p>\n<!-- /wp:paragraph -->";
+	}
+	return array(
+		'content' => implode( "\n\n", $blocks ),
+		'warnings' => array( __( 'TXT has no formatting or chapter styles. Single line breaks were preserved. Review the text and mark chapter headings in the editor if needed.', 'kilka-reader' ) ),
+	);
+}
+
 function kilka_reader_import_form() {
 	$limit = size_format( kilka_reader_import_limit() );
-	echo '<details><summary>' . esc_html__( 'Import DOCX', 'kilka-reader' ) . '</summary>';
-	echo '<p>' . esc_html__( 'Upload a story as a new draft. Paragraphs, bold, italic and Heading 1/2 are preserved. Fonts and page layout are not imported. Review the text before publishing.', 'kilka-reader' ) . '</p>';
-	echo '<p>' . esc_html__( 'This first version does not accept images, tables, lists, links, notes or tracked changes. Use a text-only DOCX copy.', 'kilka-reader' ) . '</p>';
+	echo '<details><summary>' . esc_html__( 'Import DOCX or TXT', 'kilka-reader' ) . '</summary>';
+	echo '<p>' . esc_html__( 'Upload a story as a new draft. DOCX preserves paragraphs, bold, italic and Heading 1/2. Fonts and page layout are not imported. Review the text before publishing.', 'kilka-reader' ) . '</p>';
+	echo '<p>' . esc_html__( 'DOCX: this first version does not accept images, tables, lists, links, notes or tracked changes. Use a text-only DOCX copy.', 'kilka-reader' ) . '</p>';
+	echo '<p>' . esc_html__( 'TXT must use UTF-8. Blank lines separate paragraphs; single line breaks are preserved. Formatting and chapter headings can be added in the editor. Line breaks copied from a PDF will not be joined automatically.', 'kilka-reader' ) . '</p>';
 	echo '<form method="post" enctype="multipart/form-data" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="kilka_reader_import_docx">';
 	wp_nonce_field( 'kilka_reader_import_docx' );
 	echo '<p><label for="kilka-import-title">' . esc_html__( 'Document title (optional)', 'kilka-reader' ) . '</label><br><input class="regular-text" id="kilka-import-title" name="document_title" type="text" maxlength="200"></p>';
-	echo '<p><label for="kilka-import-file">' . esc_html( sprintf( __( 'DOCX file — maximum %s', 'kilka-reader' ), $limit ) ) . '</label><br><input id="kilka-import-file" type="file" name="document_file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required></p>';
+	echo '<p><label for="kilka-import-file">' . esc_html( sprintf( __( 'DOCX or UTF-8 TXT file — maximum %s', 'kilka-reader' ), $limit ) ) . '</label><br><input id="kilka-import-file" type="file" name="document_file" accept=".docx,.txt,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" required></p>';
 	submit_button( __( 'Import as draft', 'kilka-reader' ), 'secondary', 'submit', false );
 	echo '</form></details>';
 }
@@ -235,10 +270,13 @@ add_action( 'admin_post_kilka_reader_import_docx', function () {
 	check_admin_referer( 'kilka_reader_import_docx' );
 	$file = isset( $_FILES['document_file'] ) ? $_FILES['document_file'] : array();
 	if ( ! isset( $file['error'], $file['name'], $file['tmp_name'] ) || ! is_scalar( $file['error'] ) || UPLOAD_ERR_OK !== (int) $file['error'] || ! is_string( $file['name'] ) || ! is_string( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
-		wp_die( esc_html__( 'No file was received. Check the upload limit and choose a DOCX file again.', 'kilka-reader' ), '', array( 'back_link' => true ) );
+		wp_die( esc_html__( 'No file was received. Check the upload limit and choose a DOCX or UTF-8 TXT file again.', 'kilka-reader' ), '', array( 'back_link' => true ) );
 	}
 	try {
-		$result = 'docx' === strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) ) ? kilka_reader_import_docx( $file['tmp_name'] ) : kilka_reader_import_error( __( 'Choose a DOCX file. Other formats are not supported yet.', 'kilka-reader' ) );
+		$extension = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+		if ( 'docx' === $extension ) { $result = kilka_reader_import_docx( $file['tmp_name'] ); }
+		elseif ( 'txt' === $extension ) { $result = kilka_reader_import_txt( $file['tmp_name'] ); }
+		else { $result = kilka_reader_import_error( __( 'Choose a DOCX or UTF-8 TXT file. Other formats are not supported yet.', 'kilka-reader' ) ); }
 	} finally {
 		// PHP upload storage only: never copy the original into public uploads.
 		unlink( $file['tmp_name'] );
@@ -260,7 +298,7 @@ add_action( 'admin_notices', function () {
 	$warnings = get_transient( $key );
 	if ( false === $warnings ) { return; }
 	delete_transient( $key );
-	echo '<div class="notice notice-success"><p>' . esc_html__( 'DOCX imported as a draft. Review the text and headings before publishing. Set the opening image separately in Reader settings.', 'kilka-reader' ) . ' <a href="' . esc_url( kilka_reader_admin_url( $id ) ) . '">' . esc_html__( 'Reader settings', 'kilka-reader' ) . '</a></p></div>';
+	echo '<div class="notice notice-success"><p>' . esc_html__( 'Document imported as a draft. Review the text and headings before publishing. Set the opening image separately in Reader settings.', 'kilka-reader' ) . ' <a href="' . esc_url( kilka_reader_admin_url( $id ) ) . '">' . esc_html__( 'Reader settings', 'kilka-reader' ) . '</a></p></div>';
 	foreach ( $warnings as $warning ) { echo '<div class="notice notice-warning"><p>' . esc_html( $warning ) . '</p></div>'; }
 } );
 
@@ -273,7 +311,7 @@ add_action( 'enqueue_block_editor_assets', function () {
 	$warnings = get_transient( $key );
 	if ( false === $warnings ) { return; }
 	delete_transient( $key );
-	$messages = array( array( 'status' => 'success', 'text' => __( 'DOCX imported as a draft. Review the text and headings before publishing. Set the opening image separately in Reader settings.', 'kilka-reader' ) ) );
+	$messages = array( array( 'status' => 'success', 'text' => __( 'Document imported as a draft. Review the text and headings before publishing. Set the opening image separately in Reader settings.', 'kilka-reader' ) ) );
 	foreach ( $warnings as $warning ) { $messages[] = array( 'status' => 'warning', 'text' => $warning ); }
-	wp_add_inline_script( 'wp-edit-post', 'wp.domReady(function(){' . wp_json_encode( $messages ) . '.forEach(function(message,index){wp.data.dispatch("core/notices").createNotice(message.status,message.text,{id:"kilka-docx-import-"+index,isDismissible:true});});});' );
+	wp_add_inline_script( 'wp-edit-post', 'wp.domReady(function(){' . wp_json_encode( $messages ) . '.forEach(function(message,index){wp.data.dispatch("core/notices").createNotice(message.status,message.text,{id:"kilka-document-import-"+index,isDismissible:true});});});' );
 } );

@@ -30,13 +30,15 @@ Deactivation preserves content and metadata. An optional fullscreen button is av
 4. Open Reader in the admin menu to configure the introduction, related publication and text language. Save reader settings.
 5. Use Edit story text for the WordPress content editor. Reader also offers Add reading document, which creates a draft with the Reading template already selected.
 
-== DOCX import (first version) ==
+== Document import (first version) ==
 
-Reader > Import DOCX creates a new draft with the Reading template. Upload a text-only DOCX (up to 2 MB, or the server limit if lower), optionally supply a title, then review the imported text in the editor. The source file is processed locally in temporary upload storage and is not added to the public media library.
+Reader > Import DOCX or TXT creates a new draft with the Reading template. Upload a text-only DOCX (up to 2 MB, or the server limit if lower), optionally supply a title, then review the imported text in the editor. The source file is processed locally in temporary upload storage and is not added to the public media library.
 
 Paragraphs, bold, italic, explicit line breaks and Heading 1/2 are supported. Heading styles become H2/H3, including inherited styles. The original title text is retained. Fonts, font sizes, colors and page layout are not imported. Page/section breaks and headers/footers produce omission notices. Chapters are preserved as headings; automatic table-of-contents navigation is not included yet.
 
-Images, tables, lists, links, footnotes/endnotes, equations, tracked changes, comments and other unsupported semantic formatting stop the import before a draft is created. Protected files, macro-enabled documents and invalid packages are rejected. Package limits: 512 entries, 20 MB total expanded size, 2 MB per part. TXT import and replacement of existing documents are not included in this version.
+Images, tables, lists, links, footnotes/endnotes, equations, tracked changes, comments and other unsupported semantic formatting stop the import before a draft is created. Protected files, macro-enabled documents and invalid packages are rejected. Package limits: 512 entries, 20 MB total expanded size, 2 MB per part. Replacement of existing documents is not included in this version.
+
+TXT uses the same upload form and limit. UTF-8 with or without a BOM is supported; LF, CRLF and CR line endings are normalized. Empty lines (including lines containing only spaces or tabs) separate paragraphs; consecutive empty lines form one separator. A single line break stays within its paragraph. Bold, italic, Markdown and chapter headings are not inferred: add formatting in the editor after import. HTML and entity-like text remain literal text. Invalid UTF-8, unsupported control characters and empty files are rejected without creating a draft. The original file stays out of the public media library.
 
 == AI Assistance ==
 
