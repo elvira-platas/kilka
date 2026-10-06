@@ -130,3 +130,6 @@ msgstr "Animation beim Umblättern"
 
 msgid "Animation is disabled by your reduced motion setting."
 msgstr "Die Animation ist durch Ihre Einstellung für reduzierte Bewegung deaktiviert."
+
+msgid "Contents"
+msgstr "Inhaltsverzeichnis"

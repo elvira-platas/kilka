@@ -253,7 +253,24 @@
       viewport.scrollTop = 0;
       surface.scrollTop = 0;
       update();
+      reader.dispatchEvent(new Event('kilka-reader-location'));
       if (remember !== false) place = capture();
+    }
+    function goToElement(element) {
+      if (!enabled || !body.contains(element)) return false;
+      cancelTurn(false);
+      // The first fragment matters when a heading spans several columns.
+      var box = element.getClientRects()[0];
+      if (!box) return false;
+      go(Math.floor((box.left - viewport.getBoundingClientRect().left + viewport.scrollLeft + 1) / stride));
+      // Keep the chapter itself as the reflow anchor, not earlier text on its page.
+      var walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      var node;
+      while ((node = walker.nextNode())) {
+        var offset = node.textContent.search(/\S/);
+        if (offset !== -1) { place = {node: node, offset: offset}; break; }
+      }
+      return true;
     }
     function reflow(mark) {
       if (!enabled || window.matchMedia('print').matches) return;
@@ -296,7 +313,10 @@
     }
     mode.addEventListener('click', function (e) {
       var button = e.target.closest('button[data-reader-mode]');
-      if (button) setMode(button.dataset.readerMode === 'pages');
+      if (button) {
+        setMode(button.dataset.readerMode === 'pages');
+        reader.dispatchEvent(new Event('kilka-reader-location'));
+      }
     });
     nav.addEventListener('click', function (e) {
       var button = e.target.closest('[data-reader-turn]');
@@ -417,9 +437,7 @@
       if (target !== page) go(target);
     }, {passive: true});
     body.addEventListener('focusin', function (e) {
-      if (!enabled) return;
-      var b = e.target.getClientRects()[0] || e.target.getBoundingClientRect();
-      go(Math.floor((b.left - viewport.getBoundingClientRect().left + viewport.scrollLeft + 1) / stride));
+      goToElement(e.target);
     });
     new ResizeObserver(function () {
       if (turnStage || drag) { resizePending = true; return; }
@@ -430,6 +448,6 @@
     mode.hidden = false;
     setMode(true);
     if (enabled) go(firstPage);
-    return {capture: function () { cancelTurn(true); return enabled ? place || capture() : capture(); }, reflow: reflow, active: function () { return enabled; }};
+    return {capture: function () { cancelTurn(true); return enabled ? place || capture() : capture(); }, reflow: reflow, active: function () { return enabled; }, goToElement: goToElement};
   };
 }());

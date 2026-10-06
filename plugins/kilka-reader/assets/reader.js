@@ -80,8 +80,129 @@
         toggle.setAttribute('aria-expanded', 'false');
         if (restoreFocus) toggle.focus({preventScroll: true});
       }
+      // Keep references to the original headings, independent of page numbers.
+      var contents = panel.querySelector('.kilka-reader-contents');
+      if (contents) {
+        var list = contents.querySelector('ol');
+        var chapters = [];
+        var contentsFrame;
+        body.querySelectorAll('h2, h3').forEach(function (heading) {
+          var label = heading.textContent.replace(/\s+/g, ' ').trim();
+          if (!label) return;
+          var item = document.createElement('li');
+          var button = document.createElement('button');
+          if (heading.tagName === 'H3') item.className = 'kilka-reader-contents-subchapter';
+          button.type = 'button';
+          button.textContent = label;
+          button.addEventListener('click', function () {
+            var paged = pagination && pagination.active();
+            // Reveal the text before moving focus away from the cover/menu.
+            if (paged && !pagination.goToElement(heading)) return;
+            closeSettings(false);
+            if (!heading.hasAttribute('tabindex')) {
+              heading.setAttribute('tabindex', '-1');
+              heading.addEventListener('blur', function () { heading.removeAttribute('tabindex'); }, {once: true});
+            }
+            heading.focus({preventScroll: true});
+            if (!paged) surface.scrollTop += heading.getBoundingClientRect().top - surface.getBoundingClientRect().top - 24;
+          });
+          item.append(button);
+          list.append(item);
+          chapters.push({heading: heading, button: button});
+        });
+        contents.hidden = !list.children.length;
+        function updateChapter() {
+          var current = null;
+          var paged = pagination && pagination.active();
+          var viewport = paged ? body.parentElement : surface;
+          var box = viewport.getBoundingClientRect();
+          if (!surface.hasAttribute('data-reader-intro-active')) {
+            for (var i = 0; i < chapters.length; i++) {
+              var rect = chapters[i].heading.getClientRects()[0];
+              if (!rect) continue;
+              if (paged) {
+                if (rect.left >= box.right - 1) break;
+                current = chapters[i];
+                // Name the first chapter starting on this page, if there is one.
+                if (rect.left >= box.left - 1) break;
+              } else {
+                if (rect.top > box.top + 32) break;
+                current = chapters[i];
+              }
+            }
+          }
+          chapters.forEach(function (chapter) {
+            if (chapter === current) chapter.button.setAttribute('aria-current', 'location');
+            else chapter.button.removeAttribute('aria-current');
+          });
+        }
+        function scheduleChapter() {
+          cancelAnimationFrame(contentsFrame);
+          contentsFrame = requestAnimationFrame(updateChapter);
+        }
+        surface.addEventListener('scroll', scheduleChapter, {passive: true});
+        reader.addEventListener('kilka-reader-location', scheduleChapter);
+        toggle.addEventListener('click', updateChapter);
+        window.addEventListener('resize', scheduleChapter);
+        if (window.ResizeObserver) new ResizeObserver(scheduleChapter).observe(body);
+        scheduleChapter();
+      }
+      var selectSection = null;
+      if (contents && !contents.hidden) {
+        var settings = document.createElement('div');
+        settings.className = 'kilka-reader-options';
+        Array.from(panel.children).forEach(function (child) {
+          if (child !== contents) settings.append(child);
+        });
+        panel.append(settings);
+        var tabs = document.createElement('div');
+        tabs.className = 'kilka-reader-tabs';
+        tabs.setAttribute('role', 'tablist');
+        tabs.setAttribute('aria-label', panel.getAttribute('aria-label'));
+        var sections = [contents, settings];
+        var labels = [contents.getAttribute('aria-label'), panel.getAttribute('aria-label')];
+        var tabButtons = sections.map(function (section, index) {
+          var tab = document.createElement('button');
+          tab.type = 'button';
+          tab.id = panel.id + '-tab-' + index;
+          section.id = panel.id + '-section-' + index;
+          section.setAttribute('role', 'tabpanel');
+          section.setAttribute('aria-labelledby', tab.id);
+          tab.setAttribute('role', 'tab');
+          tab.setAttribute('aria-controls', section.id);
+          tab.textContent = labels[index];
+          tab.addEventListener('click', function () { selectSection(index); });
+          tabs.append(tab);
+          return tab;
+        });
+        selectSection = function (index) {
+          sections.forEach(function (section, i) {
+            section.hidden = i !== index;
+            tabButtons[i].setAttribute('aria-selected', String(i === index));
+            tabButtons[i].tabIndex = i === index ? 0 : -1;
+          });
+          panel.scrollTop = 0;
+        };
+        tabs.addEventListener('keydown', function (event) {
+          var index = tabButtons.indexOf(event.target);
+          if (index < 0) return;
+          var next = {ArrowRight: (index + 1) % 2, ArrowLeft: (index + 1) % 2, Home: 0, End: 1}[event.key];
+          if (next === undefined) return;
+          event.preventDefault();
+          selectSection(next);
+          tabButtons[next].focus();
+        });
+        panel.prepend(tabs);
+        var title = contents.querySelector('h2');
+        if (title) title.hidden = true;
+        var icon = toggle.querySelector('path');
+        if (icon) icon.setAttribute('d', 'M4 6h1m4 0h11M4 12h1m4 0h11M4 18h1m4 0h11');
+        toggle.setAttribute('aria-label', labels.join(' / '));
+        selectSection(0);
+      }
       toggle.addEventListener('click', function () {
         var opening = panel.hidden;
+        if (opening && selectSection) selectSection(0);
         panel.hidden = !opening;
         toggle.setAttribute('aria-expanded', String(opening));
         if (opening) panel.querySelector('button:not(:disabled)').focus({preventScroll: true});

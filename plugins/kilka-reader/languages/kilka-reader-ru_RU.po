@@ -130,3 +130,6 @@ msgstr "Анимация перелистывания"
 
 msgid "Animation is disabled by your reduced motion setting."
 msgstr "Анимация отключена настройкой уменьшения движения на вашем устройстве."
+
+msgid "Contents"
+msgstr "Оглавление"

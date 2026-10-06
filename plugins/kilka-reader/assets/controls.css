@@ -140,7 +140,7 @@ body.kilka-reader-active.admin-bar { --reader-admin-offset: 32px; }
   z-index: 1001;
   top: calc(72px + env(safe-area-inset-top, 0px) + var(--reader-admin-offset, 0px));
   right: calc(12px + env(safe-area-inset-right, 0px));
-  width: 244px;
+  width: 400px;
   max-width: calc(100vw - 24px);
   max-height: calc(100dvh - 96px - env(safe-area-inset-top, 0px) - var(--reader-admin-offset, 0px));
   overflow-y: auto;
@@ -224,3 +224,75 @@ html[data-reader-chrome="hidden"] body.kilka-reader-active main#content.kilka-re
 @media print { .kilka-reader .kilka-reader-hint { display: none; } }
 html[data-reader-chrome] body.kilka-reader-active.admin-bar { --reader-admin-offset: 0px; }
 html[data-reader-chrome] #wpadminbar { display: none; }
+
+/* Contents for scrolling and paginated reading, inside the existing menu. */
+.kilka-reader-contents { width: 100%; }
+.kilka-reader-contents[hidden] { display: none; }
+.kilka-reader .kilka-reader-contents h2 {
+  margin: 0 0 8px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: inherit;
+  text-align: start;
+  text-transform: none;
+}
+.kilka-reader-contents ol { list-style: none; padding: 0; margin: 0; }
+.kilka-reader-contents li { padding: 0; margin: 0; }
+.kilka-reader-contents .kilka-reader-contents-subchapter { padding-inline-start: 16px; }
+.kilka-reader-contents button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.kilka-reader-contents button:hover { background: var(--reader-control, #e3d7bd); }
+.kilka-reader-contents button:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b);
+  outline-offset: -2px;
+}
+
+.kilka-reader-contents button[aria-current="location"] {
+  background: var(--reader-control, #e3d7bd);
+  font-weight: 700;
+}
+
+.kilka-reader-tabs { display: flex; width: 100%; gap: 8px; }
+.kilka-reader-tabs button {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.kilka-reader-tabs button[aria-selected="true"] {
+  background: var(--reader-control, #e3d7bd);
+  font-weight: 600;
+}
+.kilka-reader-tabs button:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b);
+  outline-offset: -2px;
+}
+.kilka-reader-options { display: flex; flex-wrap: wrap; width: 100%; gap: 12px 24px; }
+.kilka-reader-options[hidden], .kilka-reader-contents h2[hidden] { display: none; }
+@media (max-width: 767px) {
+  .kilka-reader-toolbar {
+    width: calc(100vw - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  }
+}
