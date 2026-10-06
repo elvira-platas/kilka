@@ -269,6 +269,9 @@ html[data-reader-chrome] #wpadminbar { display: none; }
 
 .kilka-reader-tabs { display: flex; width: 100%; gap: 8px; }
 .kilka-reader-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   min-width: 0;
   min-height: 44px;

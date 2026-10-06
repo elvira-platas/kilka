@@ -170,7 +170,24 @@
           section.setAttribute('aria-labelledby', tab.id);
           tab.setAttribute('role', 'tab');
           tab.setAttribute('aria-controls', section.id);
-          tab.textContent = labels[index];
+          tab.setAttribute('aria-label', labels[index]);
+          tab.title = labels[index];
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('width', '24');
+          svg.setAttribute('height', '24');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('aria-hidden', 'true');
+          svg.setAttribute('focusable', 'false');
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', 'currentColor');
+          svg.setAttribute('stroke-width', '1.8');
+          svg.setAttribute('stroke-linecap', 'round');
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', index === 0
+            ? 'M4 6h1m4 0h11M4 12h1m4 0h11M4 18h1m4 0h11'
+            : 'M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M8 15v6');
+          svg.append(path);
+          tab.append(svg);
           tab.addEventListener('click', function () { selectSection(index); });
           tabs.append(tab);
           return tab;
