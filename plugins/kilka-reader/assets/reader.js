@@ -246,6 +246,17 @@
     if (fullscreen && document.fullscreenEnabled && root.requestFullscreen && document.exitFullscreen) {
       var dock = reader.querySelector('.kilka-reader-dock');
       var hint = reader.querySelector('.kilka-reader-hint');
+      var coverFullscreen = null;
+      var phone = window.matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 600;
+      if (phone && reader.querySelector('.kilka-reader-intro')) {
+        coverFullscreen = document.createElement('button');
+        coverFullscreen.type = 'button';
+        coverFullscreen.className = 'kilka-reader-cover-fullscreen';
+        coverFullscreen.textContent = fullscreen.dataset.enterLabel;
+        coverFullscreen.lang = panel.lang || document.documentElement.lang;
+        coverFullscreen.addEventListener('click', function () { fullscreen.click(); });
+        dock.insertBefore(coverFullscreen, toggle);
+      }
       var hintTimer;
       var hintShown = false;
       var wasFullscreen = false;
@@ -327,14 +338,17 @@
       }
       fullscreen.addEventListener('click', async function () {
         fullscreen.disabled = true;
+        if (coverFullscreen) coverFullscreen.disabled = true;
         fullscreenStatus.textContent = '';
         try {
           if (document.fullscreenElement === root) await document.exitFullscreen();
           else await root.requestFullscreen();
         } catch (error) {
           fullscreenStatus.textContent = fullscreen.dataset.error;
+          if (coverFullscreen && hint) hint.textContent = fullscreen.dataset.error;
         } finally {
           fullscreen.disabled = false;
+          if (coverFullscreen) coverFullscreen.disabled = false;
           syncFullscreen();
         }
       });

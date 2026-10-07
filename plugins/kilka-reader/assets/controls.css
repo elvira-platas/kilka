@@ -299,3 +299,24 @@ html[data-reader-chrome] #wpadminbar { display: none; }
     width: calc(100vw - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
   }
 }
+
+/* Offer fullscreen on a phone cover without adding a step before reading. */
+.kilka-reader-cover-fullscreen { display: none; }
+[data-reader-intro-active] .kilka-reader-cover-fullscreen {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: calc(100% - 112px);
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 22px;
+  background: rgba(16, 28, 34, 0.82);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font: 500 14px/1.4 system-ui, sans-serif;
+  cursor: pointer;
+}
+:fullscreen .kilka-reader-cover-fullscreen { display: none; }
+.kilka-reader-cover-fullscreen:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.kilka-reader-cover-fullscreen:disabled { opacity: 0.6; }
