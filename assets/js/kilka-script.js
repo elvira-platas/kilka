@@ -17,6 +17,33 @@
     });
 
     $(document).ready(function () {
+        // Adapt audited legacy colors without removing their authored hue.
+        // Keep original ink as the light/print fallback; CSS handles scheme changes.
+        var legacyInkTokens = {
+            "black": "ink",
+            "rgb(0, 0, 0)": "ink",
+            "rgb(28, 28, 28)": "ink",
+            "rgb(51, 51, 51)": "ink",
+            "darkslategray": "teal",
+            "darkslategrey": "teal",
+            "rgb(47, 79, 79)": "teal",
+            "rgb(17, 85, 204)": "blue",
+            "rgb(34, 111, 40)": "green",
+            "red": "red",
+            "rgb(255, 0, 0)": "red"
+        };
+        $("article.type-post .entry-content [style]").each(function () {
+            var ink = this.style.getPropertyValue("color");
+            var token = legacyInkTokens[ink];
+            if (token) {
+                this.style.setProperty(
+                    "color",
+                    "var(--kilka-legacy-" + token + ", " + ink + ")",
+                    this.style.getPropertyPriority("color")
+                );
+            }
+        });
+
         // Keep table semantics intact: scroll a wrapper, not a display:block table.
         var tableScrollers = [];
         $(".kilka-main-blog-context .entry-content table").each(function () {

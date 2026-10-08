@@ -447,6 +447,42 @@ hr.wp-block-separator {
   background-color: var(--kilka-border-soft);
 }
 
+/* Plain legacy separators retain their light-mode border and geometry. */
+article.type-post .entry-content hr:not([class]) {
+  border-color: var(--kilka-legacy-rule, rgba(0, 0, 0, 0.1));
+}
+
+html[data-color-scheme="dark"] article.type-post .entry-content {
+  --kilka-legacy-ink: var(--kilka-reading-text);
+  --kilka-legacy-teal: #91b5b5;
+  --kilka-legacy-blue: #8ab4f8;
+  --kilka-legacy-green: #8bc98f;
+  --kilka-legacy-red: #ff8585;
+  --kilka-legacy-rule: var(--kilka-border);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-color-scheme]) article.type-post .entry-content {
+    --kilka-legacy-ink: var(--kilka-reading-text);
+    --kilka-legacy-teal: #91b5b5;
+    --kilka-legacy-blue: #8ab4f8;
+    --kilka-legacy-green: #8bc98f;
+    --kilka-legacy-red: #ff8585;
+    --kilka-legacy-rule: var(--kilka-border);
+  }
+}
+
+@media print {
+  article.type-post .entry-content {
+    --kilka-legacy-ink: initial !important;
+    --kilka-legacy-teal: initial !important;
+    --kilka-legacy-blue: initial !important;
+    --kilka-legacy-green: initial !important;
+    --kilka-legacy-red: initial !important;
+    --kilka-legacy-rule: initial !important;
+  }
+}
+
 pre,
 code,
 kbd,
