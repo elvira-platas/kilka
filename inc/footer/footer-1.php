@@ -15,7 +15,7 @@ function kilka_footer_style_1(){ ?>
 
 					if ( '' !== $footer_copyright_owner ) :
 						?>
-						&copy; <?php echo esc_html( date( 'Y' ) ); ?> ❤️ <?php echo esc_html( $footer_copyright_owner ); ?>
+						&copy; <?php echo esc_html( date( 'Y' ) ); ?> <?php echo esc_html( $footer_copyright_owner ); ?>
 						<span class="sep"> | </span>
 					<?php endif; ?>
 					<a href="<?php echo esc_url( 'https://wordpress.org/' ); ?>" target="_blank" rel="noopener"><?php echo esc_html__( 'Powered by WordPress', 'kilka' ); ?></a>

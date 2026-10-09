@@ -185,6 +185,22 @@ function kilka_disable_pingbacks( $methods ) {
 add_filter( 'xmlrpc_methods', 'kilka_disable_pingbacks' );
 
 /**
+ * Keep public emoji as Unicode instead of loading fallback images from a CDN.
+ * Cover ordinary pages, WordPress embed cards and RSS output.
+ */
+function kilka_use_native_emoji() {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'embed_head', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_footer_scripts', '_print_emoji_detection_script' );
+	remove_action( 'wp_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+	remove_action( 'enqueue_embed_scripts', 'wp_enqueue_emoji_styles' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+}
+add_action( 'init', 'kilka_use_native_emoji' );
+
+/**
  * Describe the Main Blog content column when WordPress builds responsive images.
  * Explicit sizes in saved markup remain under the author's control.
  *
