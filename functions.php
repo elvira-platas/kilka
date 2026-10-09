@@ -275,6 +275,7 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/reading.php';
+require get_template_directory() . '/inc/embed-colors.php';
 
 /**
  * Customizer additions.
