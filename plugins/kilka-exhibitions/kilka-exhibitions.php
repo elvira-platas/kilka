@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Kilka Exhibitions
- * Plugin URI:  https://github.com/elvira-platas/my-website-theme
+ * Plugin URI:  https://github.com/elvira-platas/kilka
  * Description: Provides portable exhibition content and editor foundations for the Kilka ecosystem.
  * Version:     0.2.0
  * Author:      Elvira

@@ -1,4 +1,4 @@
-# Kilka Fork Packaging
+# Kilka
 
 This repository stores:
 
@@ -7,8 +7,7 @@ This repository stores:
 - the companion plugin `kilka-exhibitions`
 - the companion plugin `kilka-reader`
 
-Experimental exhibition work is currently developed on the
-`feature/exhibitions` branch. The design draft is documented in
+Development takes place on `main`. The exhibition design is documented in
 [`docs/exhibition-architecture.md`](docs/exhibition-architecture.md).
 
 The exhibition content model lives in a separate first-party
@@ -53,6 +52,15 @@ The source repository and public download model are described in
 [`docs/github-release-plan.md`](docs/github-release-plan.md). Development stays
 in this monorepo, while WordPress installation uses separate theme and plugin
 ZIP files from GitHub Releases.
+
+## Releases
+
+The theme version is **1.3.0**, tagged **`v1.3.0`**. Download installation ZIPs
+from [GitHub Releases](https://github.com/elvira-platas/kilka/releases).
+Companion plugins retain independent versions: Second Blog 1.0.0,
+Exhibitions 0.2.0, and Reader 0.1.0.
+
+Deployments pin the full commit SHA associated with the release tag.
 
 ## Build ZIP packages
 

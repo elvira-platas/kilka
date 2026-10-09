@@ -11,7 +11,7 @@ download point for WordPress-ready files.
 ## Repository layout
 
 ```text
-my-website-theme/
+kilka/
 ├── theme files at the repository root
 ├── plugins/
 │   ├── kilka-second-blog/
@@ -47,14 +47,16 @@ The theme and plugins keep independent versions in their own headers and
 readme files. A collection release records which component versions were
 tested together without assigning them a false shared semantic version.
 
-Working naming scheme:
+Release naming scheme:
 
-- tag: `bundle-YYYY.MM.DD`;
-- title: `Kilka collection — YYYY.MM.DD`;
+- tag: `v<theme-version>` (first public release: `v1.3.0`);
+- title: `Kilka 1.3.0`;
 - release notes: list the exact theme and plugin versions.
 
-The naming scheme can be revised before the first public release. The internal
-component versions remain authoritative.
+The tag identifies a repository snapshot whose theme has that version. Bundled
+plugins retain their independent versions; a tag does not assign the theme
+version to plugins. Deployments pin the full commit SHA of the tested tag.
+Do not move published release tags; create a new version for later changes.
 
 ## Installation
 
@@ -83,7 +85,7 @@ plugins must remain independent of each other.
    backups, and experimental drafts are absent.
 8. Install the ZIP files on a clean WordPress instance and test the supported
    component combinations.
-9. Create the collection tag from the exact tested commit.
+9. Create the release tag from the exact tested commit.
 10. Create the GitHub Release, list component versions and compatibility notes,
     and attach the four ZIP files and checksums.
 

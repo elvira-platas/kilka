@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Kilka Second Blog
- * Plugin URI:  https://github.com/elvira-platas/my-website-theme
+ * Plugin URI:  https://github.com/elvira-platas/kilka
  * Description: Registers the Second Blog custom post type, taxonomies, and context helpers used by the Kilka theme.
  * Version:     1.0.0
  * Author:      Elvira

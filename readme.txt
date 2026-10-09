@@ -5,7 +5,7 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 Requires at least: 5.7
 Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 1.2.11
+Stable tag: 1.3.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Original theme: Kilka
 Original author: Asha Themes
 Original author website: https://ashathemes.com/
 Fork maintainer: Elvira
-Fork repository: https://github.com/elvira-platas/my-website-theme
+Fork repository: https://github.com/elvira-platas/kilka
 AI-assisted development: Development of this fork was carried out with substantial assistance from OpenAI Codex and Google Gemini. These AI systems were used to generate and modify code, review changes, prepare documentation, and guide testing. Elvira directed the work, evaluated the results, and is responsible for published releases.
 
 == Installation ==
@@ -30,6 +30,13 @@ AI-assisted development: Development of this fork was carried out with substanti
 3. Click Activate.
 
 == Changelog ==
+
+= 1.3.0 =
+* Added light, dark, and automatic color schemes, including legacy post colors and local embedded posts.
+* Added dedicated presentation for the optional Exhibitions and Reader plugins.
+* Refined responsive navigation and reading layouts.
+* Removed the footer heart and public emoji CDN fallback.
+* Published separate installation packages for the theme and companion plugins.
 
 = 1.2.11 =
 * Added an optional Second Blog disclosure field in the Customizer.
