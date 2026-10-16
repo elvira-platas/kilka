@@ -7,15 +7,19 @@ This file is maintainer documentation for publishing the Kilka theme and its com
 - The theme and companion plugins are separated.
 - The `Second Blog` logic is in `plugins/kilka-second-blog/kilka-second-blog.php`.
 - The exhibition content model and constrained block editor are in `plugins/kilka-exhibitions/`.
-- The plugins use separate `kilka-second-blog` and `kilka-exhibitions` text domains.
+- Reader pages, controls and import are in `plugins/kilka-reader/`.
+- Each plugin uses its own text domain: `kilka-second-blog`,
+  `kilka-exhibitions` or `kilka-reader`.
 - Separate packages are built with `./scripts/build-packages.sh`.
 - Original-author attribution is present in `style.css` and `readme.txt`.
-- Substantial AI-assisted development with OpenAI Codex and Google Gemini is disclosed in the public README files.
+- Public readmes identify Codex and Gemini as the tools that generated and
+  modified code, and Elvira as the project owner who sets requirements and
+  decides what to publish, not as the programmer.
 - Package validation rejects legacy promotional content and repository-only directories.
 
 ## Remaining steps for the WordPress.org Theme Directory
 
-1. Choose a final unique theme name and slug.
+1. Confirm that the theme name and slug meet directory requirements.
 2. Review the metadata in `style.css`.
 3. Verify that `Contributors` in `readme.txt` contains the correct WordPress.org username.
 4. Review the license notices for all bundled third-party resources, including Bootstrap, SlickNav, and fonts.
@@ -27,10 +31,12 @@ This file is maintainer documentation for publishing the Kilka theme and its com
 
 1. Review each plugin header:
    - `plugins/kilka-second-blog/kilka-second-blog.php`;
-   - `plugins/kilka-exhibitions/kilka-exhibitions.php`.
+   - `plugins/kilka-exhibitions/kilka-exhibitions.php`;
+   - `plugins/kilka-reader/kilka-reader.php`.
 2. Maintain each plugin readme source:
    - `plugins/kilka-second-blog/readme.txt`;
-   - `plugins/kilka-exhibitions/readme.txt`.
+   - `plugins/kilka-exhibitions/readme.txt`;
+   - `plugins/kilka-reader/readme.txt`.
 3. Verify that the plugin `Contributors` value matches the WordPress.org username.
 4. Request a plugin slug at `https://wordpress.org/plugins/developers/add/`.
 5. After approval, use the assigned WordPress.org SVN repository:
@@ -44,7 +50,8 @@ This file is maintainer documentation for publishing the Kilka theme and its com
 
 1. Git repository:
    - `plugins/kilka-second-blog/readme.txt`;
-   - `plugins/kilka-exhibitions/readme.txt`.
+   - `plugins/kilka-exhibitions/readme.txt`;
+   - `plugins/kilka-reader/readme.txt`.
 2. WordPress.org SVN after approval:
    - `trunk/readme.txt`;
    - `tags/x.y.z/readme.txt` for each release.
@@ -52,7 +59,7 @@ This file is maintainer documentation for publishing the Kilka theme and its com
 ## Theme and plugin relationship
 
 1. The theme may recommend the optional companion plugins.
-2. The theme must not bundle or auto-install either plugin in a way that violates WordPress.org rules.
+2. The theme must not bundle or auto-install any companion plugin in a way that violates WordPress.org rules.
 3. Custom post types, taxonomies, and custom editor blocks must remain in their respective plugins.
 
 ## Package build
@@ -65,7 +72,8 @@ The command creates:
 
 - `dist/kilka.zip`;
 - `dist/kilka-second-blog.zip`;
-- `dist/kilka-exhibitions.zip`.
+- `dist/kilka-exhibitions.zip`;
+- `dist/kilka-reader.zip`.
 
 Repository documentation under `docs/` is not included in any installable package.
 
@@ -85,7 +93,10 @@ Repository documentation under `docs/` is not included in any installable packag
    - exhibition post type registration and REST metadata;
    - Sequence template locking and Image, Text, and Pause Space editing;
    - block insertion, reordering, saving, reopening, and mobile preview;
-   - exhibition output with and without the Kilka theme.
+   - exhibition output with and without the Kilka theme;
+   - Reader creation, DOCX/TXT import and chapter navigation;
+   - Reader scrolling, pagination, settings and supported fullscreen behavior;
+   - Reader output with Kilka and the plugin fallback template.
 5. Publish only after the clean-install checks pass.
 
 ## Useful links

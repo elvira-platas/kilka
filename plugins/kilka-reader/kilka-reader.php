@@ -3,7 +3,7 @@
  * Plugin Name: Kilka Reader
  * Description: Portable reading pages with a related publication and optional text size controls.
  * Version: 0.1.0
- * Author: Elvira
+ * Author: Elvira (project owner)
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: kilka-reader
@@ -11,7 +11,10 @@
  * Requires at least: 6.6
  * Requires PHP: 7.4
  *
- * Developed with substantial assistance from OpenAI Codex under Elvira's direction.
+ * Code generated and modified by OpenAI Codex, also used for code review,
+ * documentation and testing. Elvira owns and maintains the project, sets
+ * requirements and decides what to publish. She does not write the code.
+ * The Author field identifies the project owner.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

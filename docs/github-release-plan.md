@@ -1,4 +1,4 @@
-# GitHub Source and Release Packaging Plan
+# GitHub releases and packaging
 
 ## Decision
 
@@ -33,8 +33,10 @@ Each GitHub Release should attach these WordPress-ready files:
 - `kilka-second-blog.zip` — the optional Second Blog plugin;
 - `kilka-exhibitions.zip` — the optional Exhibitions plugin;
 - `kilka-reader.zip` — the optional Reader plugin;
-- `SHA256SUMS` — checksums for the attached ZIP files, when release automation
-  is added.
+- `SHA256SUMS` — checksums for the four attached ZIP files.
+
+The build script creates the ZIPs. Generate `SHA256SUMS` separately from the
+final archives before uploading them; the script does not publish releases.
 
 Do not publish a combined installable ZIP containing the theme and plugins.
 WordPress cannot route the contents of such an archive to both the themes and
@@ -73,11 +75,12 @@ plugins must remain independent of each other.
 
 ## Release checklist
 
-1. Start from a clean, reviewed branch with no experimental or uncommitted
-   files.
-2. Merge the approved work intended for the release.
+1. Start from `main` with a clean tracked working tree.
+2. Confirm that it contains only the reviewed work intended for the release.
 3. Update only the versions of components that actually changed.
-4. Align plugin `Stable tag` values and public readme information.
+4. Align the theme version in `style.css`, `KILKA_VERSION` in `functions.php`,
+   and `Stable tag` in `readme.txt`. Align each plugin header and `Stable tag`
+   independently, and update the public readmes.
 5. Run `./scripts/build-packages.sh`.
 6. Inspect all four archives and confirm that each has one correctly named
    top-level directory.

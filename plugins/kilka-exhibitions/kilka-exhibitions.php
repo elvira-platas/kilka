@@ -4,13 +4,15 @@
  * Plugin URI:  https://github.com/elvira-platas/kilka
  * Description: Provides portable exhibition content and editor foundations for the Kilka ecosystem.
  * Version:     0.2.0
- * Author:      Elvira
+ * Author:      Elvira (project owner)
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: kilka-exhibitions
  *
- * Development of this plugin was carried out with substantial assistance from
- * OpenAI Codex and Google Gemini under Elvira's direction.
+ * Code generated and modified by OpenAI Codex and Google Gemini.
+ * These tools were also used for code review, documentation and testing.
+ * Elvira owns and maintains the project, sets requirements and decides what
+ * to publish. She does not write the code. Author identifies the project owner.
  *
  * @package Kilka_Exhibitions
  */

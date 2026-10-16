@@ -8,7 +8,7 @@ Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Provides portable exhibition content and editor foundations for the Kilka ecosystem.
+Create exhibitions from image, text and pause blocks.
 
 == Description ==
 
@@ -24,9 +24,9 @@ Text Spaces provide constrained width, horizontal and vertical placement, text-s
 
 The Exhibition information document panel edits an optional public heading, the brief description, creator, rights notice, and public information-panel state. The administrative Exhibition title remains independent, so a supporting theme can omit or replace the visible panel heading while retaining a useful title for content management and accessibility. A supporting theme can retrieve these portable values together with the ordered work captions.
 
-== AI Assistance ==
+== Development ==
 
-Development of this plugin was carried out with substantial assistance from OpenAI Codex and Google Gemini. These AI systems were used to generate and modify code, review changes, prepare documentation, and guide testing. Elvira directed the work, evaluated the results, and is responsible for published releases.
+Code for this plugin was generated and modified by OpenAI Codex and Google Gemini. These tools were also used for code review, documentation and testing. Elvira is the project owner and maintainer: she sets requirements, evaluates results and decides what to publish. She does not write the code.
 
 == Installation ==
 
@@ -50,7 +50,7 @@ Yes. The Exhibition post type and its metadata are registered by this plugin, so
 
 = Does version 0.2.0 include the final exhibition presentation? =
 
-No. Version 0.2.0 provides the first working editor vertical slice, core information controls, and neutral structural block output. Search and wall-tone controls, final theme integration, the shared footer, and visual treatments remain in development.
+Version 0.2.0 provides the editor, information controls and structural block output. Kilka 1.3.0 adds a dedicated exhibition template, an accessible information panel, image shadows and the shared site header and footer. Other themes control their own presentation. Search-summary and wall-tone editor controls are not implemented.
 
 == Changelog ==
 
@@ -72,7 +72,7 @@ No. Version 0.2.0 provides the first working editor vertical slice, core informa
 == Upgrade Notice ==
 
 = 0.2.0 =
-Adds the first working Sequence and Space editor. The final exhibition presentation is still in development.
+Adds the Sequence and Space editor and exhibition information controls. Kilka 1.3.0 supplies the matching theme presentation.
 
 = 0.1.0 =
 Initial development foundation. The dedicated sequence editor is not included yet.

@@ -1,93 +1,82 @@
 # Kilka
 
-This repository stores:
+A WordPress theme for a blog, with three optional plugins.
 
-- the `kilka` theme
-- the companion plugin `kilka-second-blog`
-- the companion plugin `kilka-exhibitions`
-- the companion plugin `kilka-reader`
+## Components
 
-Development takes place on `main`. The exhibition design is documented in
-[`docs/exhibition-architecture.md`](docs/exhibition-architecture.md).
+| Component | Version | Purpose |
+|---|---|---|
+| Kilka | 1.3.0 | Blog layouts, navigation, light and dark color schemes |
+| Kilka Second Blog | 1.0.0 | A separate blog with its own entries, taxonomies and typography |
+| Kilka Exhibitions | 0.2.0 | Sequences of images, text and pauses, with an information panel in Kilka |
+| Kilka Reader | 0.1.0 | Reading pages with contents, pagination, text settings and DOCX/TXT import |
 
-The exhibition content model lives in a separate first-party
-`kilka-exhibitions` companion plugin. Version `0.2.0` adds a constrained block
-editor: every exhibition contains one Sequence whose ordered children can only
-be Image, Text, or Pause Spaces. The plugin is stored in this monorepo but
-installed independently from the theme, following the existing Second Blog
-packaging model. Image captions can be assigned to a visible caption, the
-exhibition information panel, or accessible-only hidden output. The plugin
-provides the ordered information-panel data; the Kilka theme owns the panel's
-interactive presentation. Text Spaces provide constrained text scale, minimum
-height, and vertical-placement presets without exposing arbitrary pixels or
-arbitrary decorative styling; one optional short-line marker is available as a
-restrained emphasis cue.
+The theme works without the plugins. Each plugin is installed separately and
+can be used without the other plugins. Reader requires WordPress 6.6 or later
+and PHP 7.4 or later; see each component's readme for its requirements.
 
-An optional public information heading, exhibition-level description, creator,
-rights, and information-panel visibility are edited together in a dedicated
-document-sidebar panel. The public heading is independent from the
-administrative Exhibition title. The values remain portable plugin data while
-the theme controls their public presentation.
+## Installation
 
-The theme includes a dedicated single-Exhibition template. It renders the
-plugin-owned Sequence inside the shared site header and footer without ordinary
-post metadata, post navigation, comments, or blog sidebars.
+Download the packages from [GitHub Releases](https://github.com/elvira-platas/kilka/releases).
+Release `v1.3.0` includes the versions listed above.
 
-Second Blog also supports an optional numbered source note. Its text, source
-title, and source URL are edited in the Customizer; the marker stays with the
-introductory disclosure while the note appears below the content area and
-outside the shared footer.
+1. Install any plugins you need through **Plugins → Add New Plugin → Upload Plugin**.
+2. Install `kilka.zip` through **Appearance → Themes → Add New Theme → Upload Theme**.
+3. Activate the selected plugins and theme.
 
-## Attribution
+Use the individual ZIP files. GitHub's **Source code** archives contain the
+whole development repository and are not WordPress installation packages.
+`SHA256SUMS` lists checksums for the four release ZIPs.
 
-The `kilka` theme is a maintained fork of the original Kilka theme by [Asha Themes](https://ashathemes.com/). Original theme copyright remains with Asha Themes. Elvira is the owner and maintainer of this fork.
+## Settings
 
-## AI assistance
+- **Theme:** Appearance → Customize. Assign site navigation links to Primary Menu.
+- **Second Blog:** create entries under Second Blog. Set its URL slug in
+  Settings → Reading, its introduction in the Customizer, and fonts in the
+  entry editor. An optional source-note marker follows the introduction's
+  description; the note appears before the footer.
+- **Exhibitions:** create an Exhibition and arrange Image, Text and Pause
+  Spaces inside its Sequence. Use Exhibition information for the description,
+  credits and information-panel settings.
+- **Reader:** open Reader to create or import a document, edit its cover and
+  settings, and link it to a related publication.
 
-Development of this fork and its companion plugin was carried out with substantial assistance from OpenAI Codex and Google Gemini. These AI systems were used to generate and modify code, review changes, prepare documentation, and guide testing. Elvira directed the work, evaluated the results, and is responsible for published releases.
+## Development
 
-For deployment/publishing, build separate ZIP files.
+Theme files are at the repository root; plugins are under `plugins/`.
+Development takes place on `main`.
 
-The source repository and public download model are described in
-[`docs/github-release-plan.md`](docs/github-release-plan.md). Development stays
-in this monorepo, while WordPress installation uses separate theme and plugin
-ZIP files from GitHub Releases.
-
-## Releases
-
-The theme version is **1.3.0**, tagged **`v1.3.0`**. Download installation ZIPs
-from [GitHub Releases](https://github.com/elvira-platas/kilka/releases).
-Companion plugins retain independent versions: Second Blog 1.0.0,
-Exhibitions 0.2.0, and Reader 0.1.0.
-
-Deployments pin the full commit SHA associated with the release tag.
-
-## Build ZIP packages
+Build packages from a checkout with Bash, Git, rsync, ripgrep, zip and unzip:
 
 ```bash
 ./scripts/build-packages.sh
 ```
 
-Output:
+The command writes `kilka.zip`, `kilka-second-blog.zip`, `kilka-exhibitions.zip`
+and `kilka-reader.zip` to `dist/`. It uses working-tree contents of tracked
+files, so a local build can include uncommitted edits. It does not create
+`SHA256SUMS` or publish a release.
 
-- `dist/kilka.zip`
-- `dist/kilka-second-blog.zip`
-- `dist/kilka-exhibitions.zip`
-- `dist/kilka-reader.zip`
+GitHub Actions checks PHP and shell syntax, package contents and diff whitespace.
 
-## Install order on WordPress
+## Documentation
 
-1. Upload and activate the optional companion plugins that the site needs:
-   - `kilka-second-blog.zip`
-   - `kilka-exhibitions.zip`
-   - `kilka-reader.zip`
-2. Upload and activate `kilka.zip` (theme).
+- [Reading pages and Reader](docs/reading-template.md)
+- [Exhibition content and presentation](docs/exhibition-architecture.md)
+- [Blog typography](BLOG-STYLES-REFERENCE.md) (Russian)
+- [Color schemes](docs/dark-theme-color-plan.md) (Russian)
+- [Release packaging](docs/github-release-plan.md)
+- [WordPress.org publication checklist](docs/wp-org-next-steps.md)
 
-This keeps the theme and portable content functionality separated. The theme
-works without the companion plugins, and the plugins are independent of each
-other.
+## Credits and license
 
-Kilka Reader 0.1.0 adds optional text size controls and a related-publication
-link to ordinary Reading pages. It preserves existing content and URLs, and
-supplies a neutral reading template when the active theme has none. See
-[Reading documentation](docs/reading-template.md).
+Kilka is a fork of the original theme by [Asha Themes](https://ashathemes.com/).
+Elvira is the project owner and maintainer, not the programmer.
+Original copyright notices are preserved.
+The theme and plugins use GPL-2.0-or-later; bundled libraries and fonts have
+[separate notices](THIRD-PARTY-NOTICES.txt).
+
+Code for this fork and its companion plugins was generated and modified by
+OpenAI Codex and Google Gemini. These tools were also used for code review,
+documentation and testing. Elvira sets requirements, evaluates results and
+decides what to publish. She does not write the code.

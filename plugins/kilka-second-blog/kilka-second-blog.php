@@ -4,13 +4,15 @@
  * Plugin URI:  https://github.com/elvira-platas/kilka
  * Description: Registers the Second Blog custom post type, taxonomies, and context helpers used by the Kilka theme.
  * Version:     1.0.0
- * Author:      Elvira
+ * Author:      Elvira (project owner)
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: kilka-second-blog
  *
- * Development of this plugin was carried out with substantial assistance from
- * OpenAI Codex and Google Gemini under Elvira's direction.
+ * Code generated and modified by OpenAI Codex and Google Gemini.
+ * These tools were also used for code review, documentation and testing.
+ * Elvira owns and maintains the project, sets requirements and decides what
+ * to publish. She does not write the code. Author identifies the project owner.
  *
  * Register custom post types for the Kilka ecosystem.
  *

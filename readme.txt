@@ -12,7 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 Kilka is a WordPress blog theme maintained as a fork.
-This fork is based on the original Kilka theme by Asha Themes and adds custom layout, navigation, metadata, and content features.
+Based on the original theme by Asha Themes, it provides blog layouts, responsive navigation, light and dark color schemes, and templates for the optional Second Blog, Exhibitions and Reader plugins. The plugins are installed separately.
 
 == Attribution ==
 
@@ -21,7 +21,7 @@ Original author: Asha Themes
 Original author website: https://ashathemes.com/
 Fork maintainer: Elvira
 Fork repository: https://github.com/elvira-platas/kilka
-AI-assisted development: Development of this fork was carried out with substantial assistance from OpenAI Codex and Google Gemini. These AI systems were used to generate and modify code, review changes, prepare documentation, and guide testing. Elvira directed the work, evaluated the results, and is responsible for published releases.
+Code development: Code for this fork and its companion plugins was generated and modified by OpenAI Codex and Google Gemini. These tools were also used for code review, documentation and testing. Elvira is the project owner and maintainer: she sets requirements, evaluates results and decides what to publish. She does not write the code.
 
 == Installation ==
 

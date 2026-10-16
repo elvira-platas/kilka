@@ -39,9 +39,9 @@ Entry font selection is portable post metadata; paragraph choices are stored
 as HTML classes. Deactivation leaves the text intact, using the active theme's
 fonts. The font files, OFL licenses and source notices are in assets/fonts/.
 
-== AI Assistance ==
+== Development ==
 
-Development of this plugin was carried out with substantial assistance from OpenAI Codex and Google Gemini. These AI systems were used to generate and modify code, review changes, prepare documentation, and guide testing. Elvira directed the work, evaluated the results, and is responsible for published releases.
+Code for this plugin was generated and modified by OpenAI Codex and Google Gemini. These tools were also used for code review, documentation and testing. Elvira is the project owner and maintainer: she sets requirements, evaluates results and decides what to publish. She does not write the code.
 
 It registers:
 
