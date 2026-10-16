@@ -1,0 +1,59 @@
+Third-Party Notices
+===================
+
+Kilka bundles the third-party assets listed below. They are included locally in
+the package and are not loaded from a third-party CDN at runtime.
+
+Bootstrap 4.6.2
+---------------
+Packaged file: assets/css/bootstrap.min.css
+The repository also retains the unminified CSS and unused JavaScript sources;
+these are excluded from the installable theme ZIP.
+
+Copyright (c) 2011-2022 The Bootstrap Authors
+License: MIT
+Project: https://getbootstrap.com/
+Source: https://github.com/twbs/bootstrap/tree/v4.6.2
+License text: https://github.com/twbs/bootstrap/blob/v4.6.2/LICENSE
+
+SlickNav 1.0.10
+---------------
+Packaged files: assets/css/slicknav.min.css, assets/js/jquery.slicknav.min.js
+Unminified CSS and JavaScript sources are retained in the repository only.
+
+Copyright (c) 2016 Josh Cope
+License: MIT
+Project: http://slicknav.io/
+
+Fonts
+-----
+The theme includes local font files for Roboto under assets/fonts/google/.
+Shafarik and Kelly Slab are listed separately below. Latin and Cyrillic subsets are
+bundled locally; the theme does not request Google Fonts or any other font
+resource from an external server at runtime.
+
+Font licenses are family-specific. The font files originate from the Google
+Fonts collection, and the applicable license for each family should be checked
+against its upstream source before redistribution outside this project:
+https://fonts.google.com/
+
+Other project components
+------------------------
+normalize.css and the Underscores starter code are credited in readme.txt.
+The Kilka theme itself is distributed under the GNU General Public License
+version 2 or later, as stated in style.css and readme.txt.
+
+Shafarik (site title)
+---------------------
+Files: assets/fonts/shafarik/
+Copyright 2025 The Shafarik Project Authors.
+License: SIL Open Font License 1.1 (included as OFL.txt).
+Source: https://github.com/google/fonts/tree/main/ofl/shafarik
+Local Latin and Cyrillic WOFF2 subsets; no external requests at runtime.
+
+Kelly Slab (announcements)
+-------------------------
+Files: assets/fonts/kelly-slab/
+License: SIL Open Font License 1.1 (included as OFL.txt).
+Source: https://github.com/google/fonts/tree/main/ofl/kellyslab
+Local Latin and Cyrillic WOFF2 subsets; independent of companion plugins.

@@ -1,0 +1,78 @@
+/* Only text surfaces explicitly owned by Second Blog opt in. */
+.kilka-note-prose,
+.kilka-note-editor-block {
+	--kilka-note-family: 'Kilka Note IBM Plex Sans', sans-serif;
+	--kilka-note-synthesis: weight style;
+}
+.kilka-note-entry-font-literata { --kilka-note-family: 'Kilka Note Literata', Georgia, serif; }
+.kilka-note-entry-font-plex { --kilka-note-family: 'Kilka Note IBM Plex Sans', sans-serif; }
+.kilka-note-entry-font-bad-script {
+	--kilka-note-family: 'Kilka Note Bad Script', cursive;
+	--kilka-note-synthesis: none;
+}
+.kilka-note-entry-font-hachi {
+	--kilka-note-family: 'Kilka Note Hachi Maru Pop', cursive;
+	--kilka-note-synthesis: none;
+}
+.kilka-note-entry-font-kelly {
+	--kilka-note-family: 'Kilka Note Kelly Slab', serif;
+	--kilka-note-synthesis: none;
+}
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, li, dt, dd, blockquote, h1, h2, h3, h4, h5, h6),
+.kilka-note-editor-block:is(p, li, h1, h2, h3, h4, h5, h6) {
+	font-family: var(--kilka-note-family);
+	font-synthesis: var(--kilka-note-synthesis);
+}
+/* A More link is navigation; preserve its normal site font. */
+.kilka-note-prose p:has(> .more-link:only-child) { font-family: inherit; }
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, h1, h2, h3, h4, h5, h6).kilka-note-font-literata,
+:is(p, h1, h2, h3, h4, h5, h6).kilka-note-editor-block.kilka-note-font-literata { --kilka-note-family: 'Kilka Note Literata', Georgia, serif; --kilka-note-synthesis: weight style; }
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, h1, h2, h3, h4, h5, h6).kilka-note-font-plex,
+:is(p, h1, h2, h3, h4, h5, h6).kilka-note-editor-block.kilka-note-font-plex { --kilka-note-family: 'Kilka Note IBM Plex Sans', sans-serif; --kilka-note-synthesis: weight style; }
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, h1, h2, h3, h4, h5, h6).kilka-note-font-kelly,
+:is(p, h1, h2, h3, h4, h5, h6).kilka-note-editor-block.kilka-note-font-kelly { --kilka-note-family: 'Kilka Note Kelly Slab', serif; --kilka-note-synthesis: none; }
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, h1, h2, h3, h4, h5, h6).kilka-note-font-bad-script,
+:is(p, h1, h2, h3, h4, h5, h6).kilka-note-editor-block.kilka-note-font-bad-script {
+	--kilka-note-family: 'Kilka Note Bad Script', cursive;
+	--kilka-note-synthesis: none;
+}
+.kilka-note-entry-font-bad-script p:not(.kilka-note-font-literata, .kilka-note-font-plex, .kilka-note-font-kelly, .kilka-note-font-hachi),
+p.kilka-note-editor-block.kilka-note-entry-font-bad-script:not(.kilka-note-font-literata, .kilka-note-font-plex, .kilka-note-font-kelly, .kilka-note-font-hachi),
+:is(.kilka-note-prose, .kilka-note-editor-block) p.kilka-note-font-bad-script,
+p.kilka-note-editor-block.kilka-note-font-bad-script {
+	font-size: 1.3em;
+	line-height: 1.8;
+}
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(p, h1, h2, h3, h4, h5, h6).kilka-note-font-hachi,
+:is(p, h1, h2, h3, h4, h5, h6).kilka-note-editor-block.kilka-note-font-hachi { --kilka-note-family: 'Kilka Note Hachi Maru Pop', cursive; --kilka-note-synthesis: none; }
+
+/* Static heading faces have no bold variant; retain the theme's heading sizes. */
+:is(.kilka-note-prose, .kilka-note-editor-block) :is(h1, h2, h3, h4, h5, h6):is(.kilka-note-font-kelly, .kilka-note-font-bad-script, .kilka-note-font-hachi),
+.kilka-note-editor-block:is(h1, h2, h3, h4, h5, h6):is(.kilka-note-font-kelly, .kilka-note-font-bad-script, .kilka-note-font-hachi) { font-weight: 400; }
+
+/* The post title alone opts in; site headings, metadata and links do not. */
+.type-world_note.kilka-note-title-literata,
+[data-kilka-note-title-font="literata"] { --kilka-note-title-family: 'Kilka Note Literata', Georgia, serif; }
+.type-world_note.kilka-note-title-plex,
+[data-kilka-note-title-font="plex"] { --kilka-note-title-family: 'Kilka Note IBM Plex Sans', sans-serif; }
+.type-world_note.kilka-note-title-kelly,
+[data-kilka-note-title-font="kelly"] { --kilka-note-title-family: 'Kilka Note Kelly Slab', serif; }
+.type-world_note.kilka-note-title-bad-script,
+[data-kilka-note-title-font="bad-script"] { --kilka-note-title-family: 'Kilka Note Bad Script', cursive; }
+.type-world_note.kilka-note-title-hachi,
+[data-kilka-note-title-font="hachi"] { --kilka-note-title-family: 'Kilka Note Hachi Maru Pop', cursive; }
+article.type-world_note > .entry-header .entry-title,
+.editor-styles-wrapper .editor-post-title__input[data-kilka-note-title-font],
+input#title[data-kilka-note-title-font] {
+	font-family: var(--kilka-note-title-family);
+	font-synthesis: none;
+}
+article.type-world_note > .entry-header .entry-title a { font-family: inherit; font-synthesis: inherit; }
+article.type-world_note:is(.kilka-note-title-kelly, .kilka-note-title-bad-script, .kilka-note-title-hachi) > .entry-header .entry-title,
+.editor-styles-wrapper .editor-post-title__input:is([data-kilka-note-title-font="kelly"], [data-kilka-note-title-font="bad-script"], [data-kilka-note-title-font="hachi"]),
+input#title:is([data-kilka-note-title-font="kelly"], [data-kilka-note-title-font="bad-script"], [data-kilka-note-title-font="hachi"]) { font-weight: 400; }
+
+/* Reading size belongs only to Second Blog prose, not its interface. */
+@media (max-width: 767px) {
+	.kilka-note-prose { font-size: 18px; line-height: 1.7; }
+}

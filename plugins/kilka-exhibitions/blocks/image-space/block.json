@@ -1,0 +1,29 @@
+{
+	"apiVersion": 2,
+	"name": "kilka-exhibitions/image-space",
+	"version": "0.2.0",
+	"title": "Image Space",
+	"category": "kilka-exhibitions",
+	"parent": [ "kilka-exhibitions/sequence" ],
+	"icon": "format-image",
+	"description": "Presents one media-library image within the exhibition sequence.",
+	"textdomain": "kilka-exhibitions",
+	"attributes": {
+		"mediaId": { "type": "number", "default": 0 },
+		"mediaUrl": { "type": "string", "default": "" },
+		"mediaAlt": { "type": "string", "default": "" },
+		"mediaWidth": { "type": "number", "default": 0 },
+		"mediaHeight": { "type": "number", "default": 0 },
+		"caption": { "type": "string", "default": "" },
+		"scale": { "type": "string", "default": "medium" },
+		"alignment": { "type": "string", "default": "center" },
+		"interval": { "type": "string", "default": "normal" },
+		"captionMode": { "type": "string", "default": "information" },
+		"creatorOverride": { "type": "string", "default": "" },
+		"copyrightOverride": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	}
+}

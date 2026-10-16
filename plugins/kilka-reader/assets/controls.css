@@ -1,0 +1,322 @@
+.kilka-reader-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-block: 0 28px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.kilka-reader-size { display: flex; gap: 6px; margin-inline-start: auto; }
+.kilka-reader-size[hidden] { display: none; }
+.kilka-reader-size button,
+.kilka-reader-alignment button {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.kilka-reader-size button:disabled { opacity: 0.4; cursor: default; }
+.kilka-reader a.kilka-reader-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  color: var(--kilka-focus, #175e83);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.kilka-reader-return svg { flex: 0 0 22px; }
+.kilka-reader-size button:focus-visible,
+.kilka-reader-alignment button:focus-visible,
+.kilka-reader a.kilka-reader-return:focus-visible {
+  outline: 2px solid var(--kilka-focus, #175e83);
+  outline-offset: 3px;
+}
+.kilka-reader-end { margin-block-start: 32px; }
+@media print {
+  .kilka-reader-toolbar, .kilka-reader-end { display: none; }
+}
+
+.kilka-reader-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.kilka-reader-alignment { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+.kilka-reader-alignment[hidden] { display: none; }
+.kilka-reader-alignment button { display: inline-flex; align-items: center; justify-content: center; padding: 12px; }
+.kilka-reader-alignment button svg { display: block; flex: 0 0 24px; }
+.kilka-reader-alignment button[aria-pressed="true"] {
+  background: var(--kilka-border-soft, #eeeeee);
+  color: inherit;
+}
+/* Restrict alignment to prose: preserve headings, byline, captions and notes. */
+.kilka-reader[data-reader-align] .kilka-reader-body :is(p, li):not(.is-style-kilka-reading-byline):not(.is-style-kilka-reading-note *):not(figcaption *) {
+  text-align: left;
+  text-align-last: auto;
+  hyphens: manual;
+}
+.kilka-reader[data-reader-align="justify"] .kilka-reader-body :is(p, li):not(.is-style-kilka-reading-byline):not(.is-style-kilka-reading-note *):not(figcaption *) {
+  text-align: justify;
+  text-align-last: left;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+
+/* The document scrolls below a separate, palette-matched control strip. */
+body.kilka-reader-active { --reader-admin-offset: 0px; overflow: hidden; }
+body.kilka-reader-active.admin-bar { --reader-admin-offset: 32px; }
+.kilka-reader-active main#content.kilka-reading {
+  position: fixed;
+  top: calc(64px + env(safe-area-inset-top, 0px) + var(--reader-admin-offset));
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  padding-top: 24px !important;
+  padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+}
+.kilka-reader-dock {
+  position: fixed;
+  z-index: 1000;
+  top: var(--reader-admin-offset, 0px);
+  left: 0;
+  right: 0;
+  height: calc(64px + env(safe-area-inset-top, 0px));
+  padding: calc(8px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) 8px calc(12px + env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--reader-background, #f5ecd9);
+  gap: 8px;
+}
+.kilka-reader-dock a.kilka-reader-return,
+.kilka-reader-settings-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--reader-border, #d2c4a8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--reader-control, #e3d7bd);
+  color: var(--reader-ink, #40382e);
+  cursor: pointer;
+  text-decoration: none;
+}
+.kilka-reader-settings-toggle[hidden],
+.kilka-reader-toolbar[hidden] { display: none; }
+.kilka-reader-settings-toggle:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b);
+  outline-offset: 3px;
+}
+.kilka-reader-toolbar {
+  position: fixed;
+  z-index: 1001;
+  top: calc(72px + env(safe-area-inset-top, 0px) + var(--reader-admin-offset, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 96px - env(safe-area-inset-top, 0px) - var(--reader-admin-offset, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  padding: 16px;
+  margin: 0;
+  border: 1px solid var(--reader-border, #d2c4a8);
+  border-radius: 8px;
+  background: var(--reader-background, #f5ecd9);
+  color: var(--reader-ink, #40382e);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+}
+.kilka-reader-toolbar .kilka-reader-size { margin: 0; }
+@media (max-width: 782px) {
+  body.kilka-reader-active.admin-bar { --reader-admin-offset: 46px; }
+}
+.kilka-reader-dock a.kilka-reader-return { transition: none; }
+@media print {
+  body.kilka-reader-active { overflow: visible; }
+  .kilka-reader-dock { display: none; }
+  .kilka-reader-active main#content.kilka-reading {
+    position: static;
+    overflow: visible;
+    min-height: 0;
+    padding: 0 !important;
+  }
+}
+
+.kilka-reader-fullscreen {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.kilka-reader-fullscreen[hidden] { display: none; }
+.kilka-reader-fullscreen[aria-pressed="true"] { background: var(--reader-control, #e3d7bd); }
+.kilka-reader-fullscreen:focus-visible { outline: 2px solid var(--reader-link, #34617b); outline-offset: 3px; }
+.kilka-reader-fullscreen:disabled { opacity: 0.5; cursor: default; }
+.kilka-reader-fullscreen-status { width: 100%; font-size: 14px; line-height: 1.5; margin: 0; }
+.kilka-reader-fullscreen-status:empty { display: none; }
+
+/* Fullscreen reading can reclaim the control strip without hiding browser exits. */
+html[data-reader-chrome="hidden"] body.kilka-reader-active main#content.kilka-reading {
+  top: calc(env(safe-area-inset-top, 0px) + var(--reader-admin-offset));
+}
+.kilka-reader-dock[hidden] { display: none; }
+.kilka-reader .kilka-reader-hint {
+  position: fixed;
+  z-index: 1002;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 40px);
+  padding: 12px 16px;
+  margin: 0;
+  border-radius: 6px;
+  background: #263746;
+  color: #ffffff;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
+}
+.kilka-reader .kilka-reader-hint:empty { display: none; }
+@media (max-width: 767px) {
+  .kilka-reader .kilka-reader-hint {
+    top: calc(20px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+  }
+}
+@media print { .kilka-reader .kilka-reader-hint { display: none; } }
+html[data-reader-chrome] body.kilka-reader-active.admin-bar { --reader-admin-offset: 0px; }
+html[data-reader-chrome] #wpadminbar { display: none; }
+
+/* Contents for scrolling and paginated reading, inside the existing menu. */
+.kilka-reader-contents { width: 100%; }
+.kilka-reader-contents[hidden] { display: none; }
+.kilka-reader .kilka-reader-contents h2 {
+  margin: 0 0 8px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: inherit;
+  text-align: start;
+  text-transform: none;
+}
+.kilka-reader-contents ol { list-style: none; padding: 0; margin: 0; }
+.kilka-reader-contents li { padding: 0; margin: 0; }
+.kilka-reader-contents .kilka-reader-contents-subchapter { padding-inline-start: 16px; }
+.kilka-reader-contents button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.kilka-reader-contents button:hover { background: var(--reader-control, #e3d7bd); }
+.kilka-reader-contents button:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b);
+  outline-offset: -2px;
+}
+
+.kilka-reader-contents button[aria-current="location"] {
+  background: var(--reader-control, #e3d7bd);
+  font-weight: 700;
+}
+
+.kilka-reader-tabs { display: flex; width: 100%; gap: 8px; }
+.kilka-reader-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.kilka-reader-tabs button[aria-selected="true"] {
+  background: var(--reader-control, #e3d7bd);
+  font-weight: 600;
+}
+.kilka-reader-tabs button:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b);
+  outline-offset: -2px;
+}
+.kilka-reader-options { display: flex; flex-wrap: wrap; width: 100%; gap: 12px 24px; }
+.kilka-reader-options[hidden], .kilka-reader-contents h2[hidden] { display: none; }
+@media (max-width: 767px) {
+  .kilka-reader-toolbar {
+    width: calc(100vw - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Offer fullscreen on a phone cover without adding a step before reading. */
+.kilka-reader-cover-fullscreen { display: none; }
+[data-reader-intro-active] .kilka-reader-cover-fullscreen {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: calc(100% - 112px);
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 22px;
+  background: rgba(16, 28, 34, 0.82);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font: 500 14px/1.4 system-ui, sans-serif;
+  cursor: pointer;
+}
+:fullscreen .kilka-reader-cover-fullscreen { display: none; }
+.kilka-reader-cover-fullscreen:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.kilka-reader-cover-fullscreen:disabled { opacity: 0.6; }

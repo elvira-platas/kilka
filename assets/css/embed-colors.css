@@ -1,0 +1,45 @@
+/* Preserve WordPress's original light embed, including external-site embeds.
+ * Only our host page can opt its own card into the dark reading palette.
+ * Images and layout are intentionally left to the standard embed template.
+ */
+@media screen {
+  html[data-kilka-embed-scheme="dark"] {
+    color-scheme: dark;
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed {
+    background: #24262c;
+    color: #d4d5d8;
+    border-color: #41444e;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed a {
+    color: #b8bac1;
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed-heading a,
+  html[data-kilka-embed-scheme="dark"] .wp-embed a:hover {
+    color: #ecedef;
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed .wp-embed-more {
+    color: #9fc8ff;
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed a:focus-visible {
+    outline: 2px solid #9fc8ff;
+    outline-offset: 2px;
+  }
+
+  /* Only the monochrome UI icons change; the cover and site icon do not. */
+  html[data-kilka-embed-scheme="dark"] .dashicons-share,
+  html[data-kilka-embed-scheme="dark"] .dashicons-admin-comments {
+    filter: brightness(0) invert(0.83);
+  }
+
+  html[data-kilka-embed-scheme="dark"] .wp-embed-share-dialog-open:focus .dashicons,
+  html[data-kilka-embed-scheme="dark"] .wp-embed-share-dialog-close:focus .dashicons {
+    box-shadow: 0 0 0 1.5px #9fc8ff;
+  }
+}

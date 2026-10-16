@@ -1,0 +1,135 @@
+msgid ""
+msgstr "Project-Id-Version: Kilka Reader 0.1.0\nLanguage: ru_RU\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Add the text here. Use paragraphs, headings, images, and separators in their reading order."
+msgstr "Добавьте текст. Используйте абзацы, заголовки, изображения и разделители в порядке чтения."
+
+msgid "Align left"
+msgstr "По левому краю"
+
+msgid "Author name"
+msgstr "Имя автора"
+
+msgid "Close reader"
+msgstr "Закрыть читалку"
+
+msgid "Cream"
+msgstr "Кремовый"
+
+msgid "Decrease text size"
+msgstr "Уменьшить текст"
+
+msgid "Document pages"
+msgstr "Страницы произведения"
+
+msgid "Enter fullscreen"
+msgstr "На весь экран"
+
+msgid "Exit fullscreen"
+msgstr "Выйти из полноэкранного режима"
+
+msgid "Fullscreen could not be changed. You can continue reading here."
+msgstr "Не удалось переключить полноэкранный режим. Можно продолжить чтение здесь."
+
+msgid "Graphite"
+msgstr "Графит"
+
+msgid "Increase text size"
+msgstr "Увеличить текст"
+
+msgid "Justify"
+msgstr "По ширине"
+
+msgid "Language tag for pronunciation and automatic hyphenation. Leave empty to use the site language."
+msgstr "Код языка для произношения и автоматических переносов. Оставьте пустым, чтобы использовать язык сайта."
+
+msgid "Light"
+msgstr "Светлый"
+
+msgid "None"
+msgstr "Нет"
+
+msgid "Neutral"
+msgstr "Нейтральный"
+
+msgid "Optional source or rights note. Remove this group if it is not needed."
+msgstr "Необязательное примечание об источнике или правах. Удалите эту группу, если она не нужна."
+
+msgid "Page color"
+msgstr "Цвет страницы"
+
+msgid "Reader"
+msgstr "Читалка"
+
+msgid "Reading"
+msgstr "Чтение"
+
+msgid "Reading byline"
+msgstr "Автор произведения"
+
+msgid "Reading document"
+msgstr "Произведение для чтения"
+
+msgid "Reading note"
+msgstr "Примечание к произведению"
+
+msgid "Reading settings"
+msgstr "Настройки чтения"
+
+msgid "Reading text"
+msgstr "Текст произведения"
+
+msgid "Related publication"
+msgstr "Связанная публикация"
+
+msgid "Reset text size"
+msgstr "Исходный размер текста"
+
+msgid "Skip to content"
+msgstr "Перейти к тексту"
+
+msgid "Text alignment"
+msgstr "Выравнивание текста"
+
+msgid "Text language"
+msgstr "Язык текста"
+
+msgid "Text size"
+msgstr "Размер текста"
+
+msgid "Use the Reading page template. Optionally choose the publication readers can return to."
+msgstr "Выберите шаблон страницы «Чтение». При желании укажите публикацию, к которой сможет вернуться читатель."
+
+msgid "Tap the text to show reading controls."
+msgstr "Нажмите на текст, чтобы показать управление."
+
+msgid "Reading mode"
+msgstr "Режим чтения"
+
+msgid "Continuous scrolling"
+msgstr "Прокрутка"
+
+msgid "Paginated reading"
+msgstr "Постраничное чтение"
+
+msgid "Reading pages"
+msgstr "Страницы произведения"
+
+msgid "Previous page"
+msgstr "Предыдущая страница"
+
+msgid "Next page"
+msgstr "Следующая страница"
+
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Страница %1$s из %2$s"
+
+msgid "Page-turn animation"
+msgstr "Анимация перелистывания"
+
+msgid "Animation is disabled by your reduced motion setting."
+msgstr "Анимация отключена настройкой уменьшения движения на вашем устройстве."
+
+msgid "Contents"
+msgstr "Оглавление"

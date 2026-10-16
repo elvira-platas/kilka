@@ -1,0 +1,31 @@
+{
+	"apiVersion": 2,
+	"name": "kilka-exhibitions/text-space",
+	"version": "0.2.0",
+	"title": "Text Space",
+	"category": "kilka-exhibitions",
+	"parent": [ "kilka-exhibitions/sequence" ],
+	"icon": "editor-textcolor",
+	"description": "Adds a short curatorial passage or transition.",
+	"textdomain": "kilka-exhibitions",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": "p",
+			"default": ""
+		},
+		"width": { "type": "string", "default": "narrow" },
+		"placement": { "type": "string", "default": "center" },
+		"alignment": { "type": "string", "default": "left" },
+		"textScale": { "type": "string", "default": "normal" },
+		"height": { "type": "string", "default": "content" },
+		"verticalPlacement": { "type": "string", "default": "center" },
+		"marker": { "type": "string", "default": "none" },
+		"interval": { "type": "string", "default": "normal" }
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	}
+}

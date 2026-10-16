@@ -1,0 +1,80 @@
+/* Reader-owned palettes: the site frame and its preference stay independent. */
+.kilka-reader-active .kilka-reading {
+  --reader-background: #f5ecd9;
+  --reader-ink: #40382e;
+  --reader-heading: #40382e;
+  --reader-link: #34617b;
+  --reader-border: #d2c4a8;
+  --reader-control: #e3d7bd;
+}
+.kilka-reader-active .kilka-reading[data-reader-color="light"] {
+  --reader-background: #fafaf8;
+  --reader-ink: #555555;
+  --reader-heading: #666666;
+  --reader-link: #21759b;
+  --reader-border: #d7d7d7;
+  --reader-control: #eeeeee;
+}
+.kilka-reader-active .kilka-reading[data-reader-color="neutral"] {
+  --reader-background: #e9eae8;
+  --reader-ink: #454649;
+  --reader-heading: #3d3e40;
+  --reader-link: #31647c;
+  --reader-border: #d0d2d0;
+  --reader-control: #dcdfdc;
+}
+.kilka-reader-active .kilka-reading[data-reader-color="graphite"] {
+  --reader-background: #18191d;
+  --reader-ink: #d4d5d8;
+  --reader-heading: #ecedef;
+  --reader-link: #9fc8ff;
+  --reader-border: #3b3e47;
+  --reader-control: #343740;
+}
+.kilka-reader-active .kilka-reading {
+  color-scheme: light;
+  --kilka-reading-text: var(--reader-ink);
+  --kilka-heading: var(--reader-heading);
+  --kilka-focus: var(--reader-link);
+  --kilka-border: var(--reader-border);
+  --kilka-border-soft: var(--reader-control);
+  color: var(--reader-ink);
+  background: var(--reader-background);
+}
+.kilka-reader-active .kilka-reading[data-reader-color="graphite"] { color-scheme: dark; }
+.kilka-reader-active .kilka-reading__content { color: var(--reader-ink); }
+.kilka-reader-active .kilka-reading :is(h1,h2,h3,h4,h5,h6) { color: var(--reader-heading); }
+.kilka-reader-active .kilka-reading a { color: var(--reader-link); }
+.kilka-reader-active .kilka-reading ::selection { background: var(--reader-ink); color: var(--reader-background); }
+.kilka-reader-colors { display: flex; gap: 8px; }
+.kilka-reader-colors[hidden] { display: none; }
+.kilka-reader-colors button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--reader-ink);
+  cursor: pointer;
+}
+.kilka-reader-colors button[aria-pressed="true"] { background: var(--reader-control); }
+.kilka-reader-swatch { width: 24px; height: 24px; border-radius: 50%; border: 1px solid currentColor; }
+[data-reader-color-option="cream"] .kilka-reader-swatch { background: #f5ecd9; }
+[data-reader-color-option="light"] .kilka-reader-swatch { background: #fafaf8; }
+[data-reader-color-option="neutral"] .kilka-reader-swatch { background: #e9eae8; }
+[data-reader-color-option="graphite"] .kilka-reader-swatch { background: #18191d; }
+.kilka-reader-colors button:focus-visible { outline: 2px solid var(--reader-link); outline-offset: 3px; }
+@media print {
+  .kilka-reader-active .kilka-reading,
+  .kilka-reader-active .kilka-reading[data-reader-color] {
+    --reader-background: white;
+    --reader-ink: black;
+    --reader-heading: black;
+    --reader-link: black;
+    color-scheme: light;
+  }
+}

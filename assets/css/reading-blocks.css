@@ -1,0 +1,114 @@
+/* Portable core-block document parts, shared with the editor. */
+.is-style-kilka-reading-text {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  line-height: 1.75;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.is-style-kilka-reading-text p,
+.is-style-kilka-reading-text li {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+
+.is-style-kilka-reading-text p {
+  margin-block: 0 1.25em;
+}
+
+.is-style-kilka-reading-text h2,
+.is-style-kilka-reading-text h3,
+.is-style-kilka-reading-text h4,
+.is-style-kilka-reading-text h5,
+.is-style-kilka-reading-text h6 {
+  margin-block: 1.8em 0.75em;
+  font-weight: 600;
+  line-height: 1.35;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.is-style-kilka-reading-text h2 { font-size: 1.4em; }
+.is-style-kilka-reading-text h3 { font-size: 1.2em; }
+.is-style-kilka-reading-text h4,
+.is-style-kilka-reading-text h5,
+.is-style-kilka-reading-text h6 { font-size: 1em; }
+
+.entry-content p.is-style-kilka-reading-byline,
+p.is-style-kilka-reading-byline {
+  margin-block: 0 2.5em;
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+.is-style-kilka-reading-note {
+  margin-block-start: 3em;
+  padding-block-start: 1.25em;
+  border-top: 1px solid var(--kilka-border-soft, #eeeeee);
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+}
+
+.is-style-kilka-reading-note p {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+  margin-block: 0 0.75em;
+}
+
+@media (max-width: 767px) {
+  .is-style-kilka-reading-text { font-size: 19px; }
+  .entry-content p.is-style-kilka-reading-byline,
+  p.is-style-kilka-reading-byline { font-size: 16px; }
+  .is-style-kilka-reading-note { font-size: 14px; }
+}
+
+/* Keep the marked story column comparable in the editor and on the page. */
+.editor-styles-wrapper .is-style-kilka-reading-text {
+  max-width: 70ch;
+  margin-inline: auto;
+}
+
+/* A calm entry link to a reading document, without a persistent underline. */
+.kilka-reading-entry a,
+.kilka-reading-entry a:hover,
+.kilka-reading-entry a:focus,
+.kilka-reading-entry a:active {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.kilka-reading-entry a:focus-visible {
+  outline: 2px solid var(--kilka-focus);
+  outline-offset: 4px;
+}
+
+.kilka-reading-entry__arrow,
+.kilka-reading-entry a:not(:has(.kilka-reading-entry__arrow))::after {
+  display: block;
+  flex: 0 0 22px;
+  align-self: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0;
+  line-height: 0;
+  background-color: currentColor;
+  /* Match the shared forward arrow, while keeping editable core-block HTML. */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.kilka-reading-entry a:not(:has(.kilka-reading-entry__arrow))::after { content: ""; }

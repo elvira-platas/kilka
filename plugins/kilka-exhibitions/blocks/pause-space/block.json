@@ -1,0 +1,18 @@
+{
+	"apiVersion": 2,
+	"name": "kilka-exhibitions/pause-space",
+	"version": "0.2.0",
+	"title": "Pause Space",
+	"category": "kilka-exhibitions",
+	"parent": [ "kilka-exhibitions/sequence" ],
+	"icon": "minus",
+	"description": "Creates an intentional empty interval in the sequence.",
+	"textdomain": "kilka-exhibitions",
+	"attributes": {
+		"length": { "type": "string", "default": "normal" }
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	}
+}

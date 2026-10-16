@@ -1,0 +1,176 @@
+.kilka-reader-mode { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+.kilka-reader-mode[hidden], .kilka-reader-pages[hidden] { display: none; }
+.kilka-reader-mode button, .kilka-reader-pages button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--reader-ink, #40382e);
+  cursor: pointer;
+}
+.kilka-reader-mode button[aria-pressed="true"] { background: var(--reader-control, #e3d7bd); border-radius: 4px; }
+.kilka-reader-pages button:disabled { opacity: 0.35; cursor: default; }
+.kilka-reader-mode button:focus-visible, .kilka-reader-pages button:focus-visible {
+  outline: 2px solid var(--reader-link, #34617b); outline-offset: 2px;
+}
+.kilka-reader-pages {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(56px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  padding: 4px calc(12px + env(safe-area-inset-right, 0px)) calc(4px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px));
+  background: var(--reader-background, #f5ecd9);
+  color: var(--reader-ink, #40382e);
+  font: 14px/1.5 system-ui, sans-serif;
+}
+@media screen {
+  body.kilka-reader-active main#content.kilka-reading[data-reader-mode="pages"] {
+    overflow: hidden;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+  [data-reader-mode="pages"] .kilka-reader-viewport {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: var(--reader-page-height);
+    scroll-behavior: auto;
+    overflow-anchor: none;
+    touch-action: pan-y pinch-zoom;
+  }
+  [data-reader-mode="pages"] .kilka-reader-viewport[data-reader-effect] {
+    cursor: default;
+  }
+  [data-reader-mode="pages"] .kilka-reader-viewport[data-reader-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
+  [data-reader-mode="pages"] .kilka-reader-body {
+    height: var(--reader-page-height);
+    column-width: auto;
+    column-count: 1;
+    column-gap: 48px;
+    column-fill: auto;
+    overflow: visible;
+  }
+  [data-reader-mode="pages"] .kilka-reader-body :is(p, li) { orphans: 2; widows: 2; }
+  [data-reader-mode="pages"] .kilka-reader-body :is(h1, h2, h3, h4, h5, h6) { break-after: avoid; }
+  [data-reader-mode="pages"] .kilka-reader-body img { max-height: calc(var(--reader-page-height) * 0.6); width: auto; object-fit: contain; }
+  [data-reader-mode="pages"] .kilka-reader-body figure { break-inside: avoid; }
+  .kilka-reader-turn-stage,
+  .kilka-reader-turn-under,
+  .kilka-reader-turn-sheet {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .kilka-reader-turn-stage { position: fixed; top: 0; left: 0; z-index: 2; }
+  .kilka-reader-turn-window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    contain: layout paint;
+    background: var(--reader-background, #f5ecd9);
+  }
+  .kilka-reader-turn-under,
+  .kilka-reader-turn-sheet {
+    inset-inline: 0;
+    background: var(--reader-background, #f5ecd9);
+  }
+  .kilka-reader-turn-under { z-index: 1; contain: layout paint; }
+  .kilka-reader-turn-sheet {
+    z-index: 2;
+    background: transparent;
+    overflow: visible;
+    will-change: transform;
+  }
+  /* Both directions move the upper sheet across the same exposed right edge. */
+  .kilka-reader-turn-sheet::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: clamp(24px, 4vw, 48px);
+    background: linear-gradient(to right, rgba(0, 0, 0, .26), rgba(0, 0, 0, .10) 30%, rgba(0, 0, 0, 0));
+    opacity: var(--reader-turn-shadow, 0);
+    pointer-events: none;
+    will-change: opacity;
+  }
+  .kilka-reader-turn-page {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    contain: layout paint;
+    background: var(--reader-background, #f5ecd9);
+  }
+  .kilka-reader-turn-stage .kilka-reader-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  html[data-reader-chrome="hidden"] .kilka-reader-pages {
+    justify-content: center;
+    height: calc(36px + env(safe-area-inset-bottom, 0px));
+  }
+  html[data-reader-chrome="hidden"] .kilka-reader-pages button { display: none; }
+  html[data-reader-chrome="hidden"] [data-reader-mode="pages"] .kilka-reader-hint {
+    bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+  @media (max-width: 767px) {
+    html[data-reader-chrome="hidden"] [data-reader-mode="pages"] .kilka-reader-hint {
+      top: calc(20px + env(safe-area-inset-top, 0px));
+      bottom: auto;
+    }
+  }
+  html[data-reader-chrome="hidden"] body.kilka-reader-active main#content.kilka-reading[data-reader-mode="pages"] {
+    padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media print { .kilka-reader-mode, .kilka-reader-pages { display: none; } }
+
+@media screen {
+  [data-reader-mode="pages"] .kilka-reader-viewport { background: var(--reader-background, #f5ecd9); }
+}
+
+/* Wide screens with a mouse use the same controls beside the text. */
+@media screen and (min-width: 1024px) and (any-hover: hover) and (any-pointer: fine) {
+  .kilka-reader-pages { justify-content: center; }
+  .kilka-reader-pages button,
+  html[data-reader-chrome="hidden"] .kilka-reader-pages button {
+    display: inline-flex;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+  }
+  .kilka-reader-pages [data-reader-turn="previous"] { left: calc(24px + env(safe-area-inset-left, 0px)); }
+  .kilka-reader-pages [data-reader-turn="next"] { right: calc(24px + env(safe-area-inset-right, 0px)); }
+  .kilka-reader-pages button svg { width: 22px; height: 22px; }
+}
+
+/* The full-screen sheet passes underneath controls, not behind opaque strips. */
+@media screen {
+  .kilka-reading[data-reader-turning] .kilka-reader-dock,
+  .kilka-reading[data-reader-turning] .kilka-reader-pages {
+    background: transparent;
+  }
+}

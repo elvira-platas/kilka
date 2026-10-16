@@ -1,0 +1,135 @@
+msgid ""
+msgstr "Project-Id-Version: Kilka Reader 0.1.0\nLanguage: de_DE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add the text here. Use paragraphs, headings, images, and separators in their reading order."
+msgstr "Fügen Sie hier den Text ein. Verwenden Sie Absätze, Überschriften, Bilder und Trennlinien in der gewünschten Lesereihenfolge."
+
+msgid "Align left"
+msgstr "Linksbündig"
+
+msgid "Author name"
+msgstr "Name der Autorin oder des Autors"
+
+msgid "Close reader"
+msgstr "Leseansicht schließen"
+
+msgid "Cream"
+msgstr "Creme"
+
+msgid "Decrease text size"
+msgstr "Text verkleinern"
+
+msgid "Document pages"
+msgstr "Seiten des Dokuments"
+
+msgid "Enter fullscreen"
+msgstr "Vollbild öffnen"
+
+msgid "Exit fullscreen"
+msgstr "Vollbild verlassen"
+
+msgid "Fullscreen could not be changed. You can continue reading here."
+msgstr "Der Vollbildmodus konnte nicht umgeschaltet werden. Sie können hier weiterlesen."
+
+msgid "Graphite"
+msgstr "Graphit"
+
+msgid "Increase text size"
+msgstr "Text vergrößern"
+
+msgid "Justify"
+msgstr "Blocksatz"
+
+msgid "Language tag for pronunciation and automatic hyphenation. Leave empty to use the site language."
+msgstr "Sprachcode für Aussprache und automatische Silbentrennung. Leer lassen, um die Sprache der Website zu verwenden."
+
+msgid "Light"
+msgstr "Hell"
+
+msgid "None"
+msgstr "Keine"
+
+msgid "Neutral"
+msgstr "Neutral"
+
+msgid "Optional source or rights note. Remove this group if it is not needed."
+msgstr "Optionaler Hinweis zu Quelle oder Nutzungsrechten. Entfernen Sie diese Gruppe, wenn sie nicht benötigt wird."
+
+msgid "Page color"
+msgstr "Seitenfarbe"
+
+msgid "Reader"
+msgstr "Leseansicht"
+
+msgid "Reading"
+msgstr "Lesen"
+
+msgid "Reading byline"
+msgstr "Autorenangabe"
+
+msgid "Reading document"
+msgstr "Lesedokument"
+
+msgid "Reading note"
+msgstr "Anmerkung zum Text"
+
+msgid "Reading settings"
+msgstr "Leseeinstellungen"
+
+msgid "Reading text"
+msgstr "Lesetext"
+
+msgid "Related publication"
+msgstr "Zugehöriger Beitrag"
+
+msgid "Reset text size"
+msgstr "Textgröße zurücksetzen"
+
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+msgid "Text alignment"
+msgstr "Textausrichtung"
+
+msgid "Text language"
+msgstr "Sprache des Textes"
+
+msgid "Text size"
+msgstr "Textgröße"
+
+msgid "Use the Reading page template. Optionally choose the publication readers can return to."
+msgstr "Verwenden Sie die Seitenvorlage „Lesen“. Wählen Sie bei Bedarf den Beitrag, zu dem die Lesenden zurückkehren können."
+
+msgid "Tap the text to show reading controls."
+msgstr "Tippen Sie auf den Text, um die Lesesteuerung einzublenden."
+
+msgid "Reading mode"
+msgstr "Lesemodus"
+
+msgid "Continuous scrolling"
+msgstr "Fortlaufendes Scrollen"
+
+msgid "Paginated reading"
+msgstr "Seitenweise lesen"
+
+msgid "Reading pages"
+msgstr "Leseseiten"
+
+msgid "Previous page"
+msgstr "Vorherige Seite"
+
+msgid "Next page"
+msgstr "Nächste Seite"
+
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Seite %1$s von %2$s"
+
+msgid "Page-turn animation"
+msgstr "Animation beim Umblättern"
+
+msgid "Animation is disabled by your reduced motion setting."
+msgstr "Die Animation ist durch Ihre Einstellung für reduzierte Bewegung deaktiviert."
+
+msgid "Contents"
+msgstr "Inhaltsverzeichnis"

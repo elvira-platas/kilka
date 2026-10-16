@@ -1,0 +1,15 @@
+{
+	"apiVersion": 2,
+	"name": "kilka-exhibitions/sequence",
+	"version": "0.2.0",
+	"title": "Exhibition Sequence",
+	"category": "kilka-exhibitions",
+	"icon": "format-gallery",
+	"description": "Contains the ordered spaces that form an exhibition.",
+	"textdomain": "kilka-exhibitions",
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"reusable": false
+	}
+}

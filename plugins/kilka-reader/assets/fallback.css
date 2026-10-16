@@ -1,0 +1,13 @@
+body.kilka-reader-fallback { margin: 0; background: #fff; color: #333; font: 18px/1.75 system-ui, sans-serif; }
+.kilka-reader-fallback .kilka-reader-site { padding: 20px; }
+.kilka-reader-fallback .kilka-reading { padding: 24px 20px 64px; }
+.kilka-reader-fallback .kilka-reading__document { max-width: 70ch; margin: auto; overflow-wrap: anywhere; }
+.kilka-reader-fallback .kilka-reading__document h1 { font-size: 1.7em; text-align: center; }
+.kilka-reader-fallback .kilka-reading__document p { font-size: inherit; line-height: inherit; margin: 0 0 1.25em; }
+.kilka-reader-fallback .is-style-kilka-reading-byline { text-align: center; }
+.kilka-reader-fallback .is-style-kilka-reading-note { margin-top: 3em; font-size: 0.85em; }
+.kilka-reader-fallback img { max-width: 100%; height: auto; }
+.kilka-reader-fallback .alignfull, .kilka-reader-fallback .alignwide { max-width: 100%; margin-inline: auto; }
+.kilka-reader-fallback a { color: #175e83; }
+.kilka-reader-fallback .screen-reader-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.kilka-reader-fallback .screen-reader-text:focus { width: auto; height: auto; clip-path: none; background: white; padding: 12px; }

@@ -1,0 +1,386 @@
+@font-face {
+  font-family: 'Kilka Intro Ruslan Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/ruslan-display-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Kilka Intro Ruslan Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/ruslan-display-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Kilka Intro Ruslan Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/ruslan-display-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Bundled OFL fonts: no external font requests. Only used faces/subsets are downloaded. */
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(fonts/cormorant-garamond-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/montserrat-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Kilka Intro Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(fonts/playfair-display-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* The introduction is outside the story columns and never changes their typography. */
+.kilka-reader-intro {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  min-height: calc(100svh - 64px);
+  padding: calc(96px + env(safe-area-inset-top, 0px)) calc(96px + env(safe-area-inset-right, 0px)) calc(96px + env(safe-area-inset-bottom, 0px)) calc(96px + env(safe-area-inset-left, 0px));
+  overflow-wrap: anywhere;
+  color: var(--intro-ink, #fff);
+  background: var(--intro-bg, #17313b);
+  text-align: var(--intro-align, left);
+  --reader-heading: var(--intro-ink, #fff);
+  --intro-x: var(--intro-desktop-x, 50%);
+  --intro-y: var(--intro-desktop-y, 50%);
+}
+.kilka-reader-intro[hidden] { display: none !important; }
+.kilka-reader-intro[data-position="top"] { justify-content: flex-start; }
+.kilka-reader-intro[data-position="bottom"] { justify-content: flex-end; }
+.kilka-reader-intro__picture,
+.kilka-reader-intro__picture::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.kilka-reader-intro__picture::after { content: ''; background: rgba(0,0,0,var(--intro-shade, .3)); z-index: 1; }
+.kilka-reader-intro .kilka-reader-intro__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: var(--intro-x) var(--intro-y);
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+.kilka-reader-intro__copy { width: 100%; max-width: 1100px; margin-inline: auto; }
+.kilka-reader-intro[data-align="left"] .kilka-reader-intro__copy { margin-inline-start: 0; margin-inline-end: auto; }
+.kilka-reader-intro[data-align="right"] .kilka-reader-intro__copy { margin-inline-start: auto; margin-inline-end: 0; }
+.kilka-reader-intro .kilka-reader-intro__title {
+  font-family: var(--intro-title-font, Georgia, serif);
+  font-size: clamp(28px, calc(var(--intro-title-size, 64px) * var(--intro-title-scale, 1)), 100px);
+  line-height: 1.12;
+  font-weight: var(--intro-title-weight, 400);
+  font-style: var(--intro-title-style, normal);
+  font-synthesis: var(--intro-title-synthesis, auto);
+  margin: 0;
+  color: inherit;
+  text-align: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: pre-line;
+}
+.kilka-reader-intro p.kilka-reader-intro__author,
+.kilka-reader-intro p.kilka-reader-intro__line {
+  font-family: var(--intro-text-font, system-ui, sans-serif);
+  font-size: max(16px, calc(var(--intro-text-size, 22px) * var(--intro-text-scale, 1)));
+  font-weight: var(--intro-text-weight, 400);
+  font-style: var(--intro-text-style, normal);
+  font-synthesis: var(--intro-text-synthesis, auto);
+  line-height: 1.5;
+  margin: 24px 0 0;
+  color: inherit;
+  text-align: inherit;
+  letter-spacing: normal;
+}
+.kilka-reader-intro p.kilka-reader-intro__line {
+  font-size: max(16px, calc(var(--intro-line-size, var(--intro-text-size, 22px)) * var(--intro-text-scale, 1)));
+}
+.kilka-reader-intro p.kilka-reader-intro__author {
+  margin-top: 12px;
+  font-size: max(16px, calc(var(--intro-text-size, 22px) * var(--intro-text-scale, 1) * .85));
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .kilka-reader-intro { --intro-title-scale: .85; --intro-x: var(--intro-tablet-x, 50%); --intro-y: var(--intro-tablet-y, 50%); }
+}
+@media (max-width: 767px) {
+  .kilka-reader-intro { --intro-title-scale: .65; --intro-text-scale: .85; --intro-x: var(--intro-mobile-x, 50%); --intro-y: var(--intro-mobile-y, 50%); padding: calc(80px + env(safe-area-inset-top, 0px)) calc(24px + env(safe-area-inset-right, 0px)) calc(80px + env(safe-area-inset-bottom, 0px)) calc(24px + env(safe-area-inset-left, 0px)); }
+  .kilka-reader-intro[data-mobile-position="top"] { justify-content: flex-start; }
+  .kilka-reader-intro[data-mobile-position="center"] { justify-content: center; }
+  .kilka-reader-intro[data-mobile-position="bottom"] { justify-content: flex-end; }
+  .kilka-reader-intro .hide-on-small { display: none; }
+}
+@media screen {
+  [data-reader-mode="pages"] .kilka-reader-intro {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    z-index: 3;
+    overflow-y: auto;
+    touch-action: pan-y pinch-zoom;
+    cursor: grab;
+  }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-reader-dragging] { cursor: grabbing; }
+  [data-reader-mode="pages"] .kilka-reader-intro__copy { margin-block: auto; flex-shrink: 0; }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-position="top"] .kilka-reader-intro__copy { margin-top: 0; }
+  [data-reader-mode="pages"] .kilka-reader-intro[data-position="bottom"] .kilka-reader-intro__copy { margin-bottom: 0; }
+  [data-reader-intro-active] .kilka-reader-viewport { visibility: hidden; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock,
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages { background: transparent; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages button { background: transparent; }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock :is(.kilka-reader-return, .kilka-reader-settings-toggle) {
+    position: relative;
+    isolation: isolate;
+    border-radius: 50%;
+    border: 0;
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
+  .kilka-reading[data-reader-intro-active] .kilka-reader-dock :is(.kilka-reader-return, .kilka-reader-settings-toggle)::before {
+    position: absolute;
+    inset: 3px;
+    z-index: -1;
+    border-radius: 50%;
+    background: rgba(24, 27, 32, .52);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    content: '';
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  :fullscreen [data-reader-mode="pages"] .kilka-reader-intro { inset: 0; }
+  @media (max-width: 767px) {
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="top"] .kilka-reader-intro__copy { margin-top: 0; margin-bottom: auto; }
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="center"] .kilka-reader-intro__copy { margin-block: auto; }
+    [data-reader-mode="pages"] .kilka-reader-intro[data-mobile-position="bottom"] .kilka-reader-intro__copy { margin-top: auto; margin-bottom: 0; }
+  }
+}
+@media print { .kilka-reader-intro { width: 100%; margin: 0; min-height: 0; break-after: page; } }
+
+@media screen and (min-width: 1024px) and (any-hover: hover) and (any-pointer: fine) {
+  .kilka-reading[data-reader-intro-active] .kilka-reader-pages button {
+    position: fixed;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(24, 27, 32, .52);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+}
+
+@media screen {
+  .kilka-reader-turn-stage { z-index: 4; }
+  .kilka-reader-turn-stage .kilka-reader-intro { visibility: visible; }
+}
+
+/* Only one version is displayed and exposed to assistive technology at a time. */
+.kilka-intro-title-phone { display: none; }
+@media screen and (max-width: 767px) {
+  .kilka-intro-title-wide { display: none; }
+  .kilka-intro-title-phone { display: inline; }
+}
