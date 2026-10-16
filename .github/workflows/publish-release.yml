@@ -1,0 +1,73 @@
+name: Publish release
+
+'on':
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag (for example v1.3.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Validate tag name
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: '[[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]'
+
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          persist-credentials: false
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes ripgrep rsync zip unzip
+
+      - name: Validate and build
+        run: |
+          git ls-files -z '*.php' | xargs -0 -n1 php -l
+          bash -n scripts/build-packages.sh
+          ./scripts/build-packages.sh
+          git diff --check
+
+      - name: Prepare checksums and release notes
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          cd dist
+          sha256sum kilka.zip kilka-second-blog.zip kilka-exhibitions.zip kilka-reader.zip > SHA256SUMS
+          sha256sum --check SHA256SUMS
+          cd ..
+          python3 - <<'PY'
+          import os, pathlib, re, subprocess
+          components = [('Kilka', 'style.css'), ('Second Blog', 'plugins/kilka-second-blog/kilka-second-blog.php'), ('Exhibitions', 'plugins/kilka-exhibitions/kilka-exhibitions.php'), ('Reader', 'plugins/kilka-reader/kilka-reader.php')]
+          versions = [(name, re.search(r'(?m)^\s*(?:\*\s*)?Version:\s*(\S+)', pathlib.Path(path).read_text()).group(1)) for name, path in components]
+          assert 'v' + versions[0][1] == os.environ['RELEASE_TAG']
+          sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          notes = 'WordPress installation packages.\n\n' + '\n'.join(f'- {name}: {version}' for name, version in versions)
+          notes += '\n\nInstall kilka.zip as a theme and only the optional plugin ZIPs you need. GitHub Source code archives are development snapshots, not installation packages.\n\nSHA256SUMS contains the checksums of the four ZIPs.\n\nSource commit: `' + sha + '`.\n'
+          pathlib.Path('dist/release-notes.md').write_text(notes)
+          PY
+
+      - name: Create release with four packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          gh release create "$RELEASE_TAG" --verify-tag --title "Kilka ${RELEASE_TAG#v}" \
+            --notes-file dist/release-notes.md \
+            dist/kilka.zip dist/kilka-second-blog.zip dist/kilka-exhibitions.zip dist/kilka-reader.zip dist/SHA256SUMS

@@ -38,6 +38,11 @@ Each GitHub Release should attach these WordPress-ready files:
 The build script creates the ZIPs. Generate `SHA256SUMS` separately from the
 final archives before uploading them; the script does not publish releases.
 
+The manual **Publish release** Actions workflow accepts an existing release tag,
+checks PHP and shell syntax, builds all four packages, generates checksums and
+creates the GitHub Release. It does not move tags or overwrite existing releases.
+Run it from `main` after the release checks below.
+
 Do not publish a combined installable ZIP containing the theme and plugins.
 WordPress cannot route the contents of such an archive to both the themes and
 plugins directories. GitHub's automatic `Source code` archives are development
@@ -57,7 +62,8 @@ Release naming scheme:
 
 The tag identifies a repository snapshot whose theme has that version. Bundled
 plugins retain their independent versions; a tag does not assign the theme
-version to plugins. Deployments pin the full commit SHA of the tested tag.
+version to plugins. Deployments select the tested release tag. Release notes
+record its full commit SHA for verification.
 Do not move published release tags; create a new version for later changes.
 
 ## Installation
