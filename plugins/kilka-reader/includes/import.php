@@ -190,7 +190,7 @@ function kilka_reader_import_docx( $file ) {
 			foreach ( $run->childNodes as $part ) {
 				if ( ! $part instanceof DOMElement ) { continue; }
 				if ( $part->namespaceURI !== $body->namespaceURI ) { return kilka_reader_import_error( __( 'The document contains unsupported inline content. No draft was created.', 'kilka-reader' ) ); }
-				if ( 't' === $part->localName ) { $fragment .= esc_html( $part->textContent ); }
+				if ( 't' === $part->localName ) { $fragment .= htmlspecialchars( $part->textContent, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ); }
 				elseif ( 'br' === $part->localName ) {
 					$type = kilka_reader_docx_value( $part, 'type' );
 					if ( '' === $type || 'textWrapping' === $type ) { $fragment .= '<br>'; }

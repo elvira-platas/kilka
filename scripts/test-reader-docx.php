@@ -25,6 +25,8 @@ $assert( false !== strpos( $r['content'], '<h2 class="wp-block-heading">Глав
 $assert( false !== strpos( $r['content'], '<strong><em>Курсив и жирный<br>&lt;script&gt; &amp; ё Straße</em></strong>' ), 'Emphasis, break or escaping failed.' );
 $blocks = array_values( array_filter( parse_blocks( $r['content'] ), function ( $b ) { return ! empty( $b['blockName'] ); } ) );
 $assert( 2 === count( $blocks ), 'Wrong block count.' );
+$r = $fixture( '<w:p><w:r><w:t>Literal &amp;amp; &amp;#169; &amp;copy; &lt;b&gt;text&lt;/b&gt;</w:t></w:r></w:p>' );
+$assert( ! is_wp_error( $r ) && false !== strpos( $r['content'], '<p>Literal &amp;amp; &amp;#169; &amp;copy; &lt;b&gt;text&lt;/b&gt;</p>' ), 'Literal HTML entities changed.' );
 $r = $fixture( '<w:p><w:r><w:rPr><w:b w:val="0"/></w:rPr><w:t>Plain</w:t></w:r></w:p>' );
 $assert( ! is_wp_error( $r ) && false === strpos( $r['content'], '<strong>' ), 'Explicit false emphasis failed.' );
 $r = $fixture( '<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b w:val="0"/></w:rPr><w:t>Plain heading</w:t></w:r></w:p>', '<w:style w:styleId="Heading1"><w:rPr><w:b/></w:rPr></w:style>' );
