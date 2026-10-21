@@ -80,7 +80,8 @@ add_action( 'admin_post_kilka_reader_settings', function () {
 	kilka_reader_admin_document( $id );
 	check_admin_referer( 'kilka_reader_settings_' . $id );
 	if ( ! isset( $_POST['kilka_intro'] ) || ! is_array( $_POST['kilka_intro'] ) ) { wp_die( esc_html__( 'Missing settings.', 'kilka-reader' ) ); }
-	update_post_meta( $id, '_kilka_reader_intro', wp_unslash( $_POST['kilka_intro'] ) );
+	// Metadata API removes WordPress request slashes before sanitizing the value.
+	update_post_meta( $id, '_kilka_reader_intro', $_POST['kilka_intro'] );
 	$target = isset( $_POST['kilka_reader_publication'] ) && is_scalar( $_POST['kilka_reader_publication'] ) ? absint( $_POST['kilka_reader_publication'] ) : 0;
 	update_post_meta( $id, '_kilka_reader_publication', kilka_reader_publication( $target ) ? $target : 0 );
 	$language = isset( $_POST['kilka_reader_language'] ) && is_string( $_POST['kilka_reader_language'] ) ? trim( wp_unslash( $_POST['kilka_reader_language'] ) ) : '';
